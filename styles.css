@@ -1314,6 +1314,10 @@ ul {
   transform: rotate(180deg);
   color: var(--accent);
 }
+.form-field select option {
+  background: #1a1a1a;
+  color: var(--text);
+}
 .form-field textarea {
   resize: none;
   min-height: 100px;
