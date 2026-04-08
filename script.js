@@ -164,4 +164,47 @@
     fadeTargets.forEach(function (el) { fadeObserver.observe(el); });
   }
 
+  /* ── Contact form: floating labels for select + submit handling ─────────── */
+  var contactForm = document.getElementById('contactForm');
+  var cfSubmit    = document.getElementById('cfSubmit');
+  var cfSuccess   = document.getElementById('cfSuccess');
+  var cfSelect    = document.getElementById('cf-service');
+
+  // Keep select "has-value" class in sync for floating label
+  if (cfSelect) {
+    cfSelect.addEventListener('change', function () {
+      if (this.value) this.classList.add('has-value');
+      else this.classList.remove('has-value');
+    });
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      cfSubmit.disabled = true;
+      cfSubmit.classList.add('is-loading');
+
+      try {
+        var res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          contactForm.hidden = true;
+          cfSuccess.hidden   = false;
+        } else {
+          cfSubmit.disabled = false;
+          cfSubmit.classList.remove('is-loading');
+          alert('Something went wrong. Please email us directly.');
+        }
+      } catch (err) {
+        cfSubmit.disabled = false;
+        cfSubmit.classList.remove('is-loading');
+        alert('Network error. Please email us directly.');
+      }
+    });
+  }
+
 })();
