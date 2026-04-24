@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropPulse Voice Agent — Live Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0a0a;
+      --card:     #111111;
+      --accent:   #00BFFF;
+      --glow:     rgba(0,191,255,0.15);
+      --border:   rgba(0,191,255,0.2);
+      --subtle:   rgba(255,255,255,0.06);
+      --text:     #ffffff;
+      --muted:    #9ca3af;
+      --subtle-t: #6b7280;
+      --radius:   16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,191,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,191,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .logo span { color: var(--accent); }
+    .tagline {
+      font-size: 0.875rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,191,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    .phone-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+    }
+    .phone {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      box-shadow:
+        0 0 0 1px var(--subtle),
+        0 0 60px var(--glow),
+        0 32px 80px rgba(0,0,0,0.6);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 680px;
+    }
+
+    .phone-top {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--subtle);
+      background: linear-gradient(180deg, rgba(0,191,255,0.06) 0%, transparent 100%);
+      flex-shrink: 0;
+    }
+    .call-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .call-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #0077aa 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.875rem;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .call-info { flex: 1; min-width: 0; }
+    .call-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+    .call-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .call-sub .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    .call-timer {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .quick-prompts {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .quick-btn {
+      background: var(--subtle);
+      border: 1px solid var(--subtle);
+      border-radius: 100px;
+      padding: 4px 10px;
+      font-size: 0.6875rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .quick-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,191,255,0.06);
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+    .messages::-webkit-scrollbar { width: 3px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: var(--subtle); border-radius: 3px; }
+
+    .msg {
+      max-width: 82%;
+      animation: fadeUp 0.25s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg--agent { align-self: flex-start; }
+    .msg--user  { align-self: flex-end; }
+
+    .msg-bubble {
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+    .msg--agent .msg-bubble {
+      background: #1a1a1a;
+      border: 1px solid var(--subtle);
+      border-bottom-left-radius: 4px;
+      color: var(--text);
+    }
+    .msg--user .msg-bubble {
+      background: var(--accent);
+      color: #000;
+      font-weight: 500;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-label {
+      font-size: 0.6875rem;
+      color: var(--subtle-t);
+      margin-bottom: 4px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .msg--user .msg-label { text-align: right; }
+
+    .typing-bubble {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 12px 16px;
+      background: #1a1a1a;
+      border: 1px solid var(--subtle);
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+    .typing-bubble span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: typing 1.2s ease-in-out infinite;
+    }
+    .typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30%            { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .input-area {
+      padding: 12px 16px 20px;
+      border-top: 1px solid var(--subtle);
+      flex-shrink: 0;
+      background: rgba(10,10,10,0.6);
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    .input-box {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid var(--subtle);
+      border-radius: 22px;
+      padding: 10px 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      max-height: 100px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+    .input-box::placeholder { color: var(--subtle-t); }
+    .input-box:focus { border-color: rgba(0,191,255,0.4); }
+
+    .send-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .send-btn:hover { background: #00d4ff; box-shadow: 0 0 16px rgba(0,191,255,0.4); }
+    .send-btn:active { transform: scale(0.94); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .send-btn svg { color: #000; }
+
+    .end-call-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .end-call-btn {
+      background: #ef4444;
+      border: none;
+      border-radius: 100px;
+      padding: 6px 18px;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .end-call-btn:hover { background: #dc2626; }
+
+    .side-panel {
+      position: relative;
+      z-index: 1;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .data-card {
+      background: var(--card);
+      border: 1px solid var(--subtle);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .data-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--subtle);
+      font-size: 0.8125rem;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--muted); }
+    .stat-val { color: var(--text); font-weight: 600; font-family: 'Montserrat', sans-serif; }
+    .stat-val.accent { color: var(--accent); }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 0.6875rem;
+      color: var(--subtle-t);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+    .disclaimer a { color: var(--accent); text-decoration: none; }
+    .disclaimer a:hover { text-decoration: underline; }
+
+    @media (min-width: 900px) {
+      .layout {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .phone-wrap { flex-shrink: 0; }
+      .side-panel { margin-top: 0; max-width: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to PropPulse
+    </a>
+    <div class="live-badge"><span class="live-dot"></span> Interactive Demo</div>
+    <div class="logo">Prop<span>Pulse</span></div>
+    <div class="tagline">Voice Agent — Real Estate Intelligence</div>
+  </div>
+
+  <div class="layout">
+
+    <div class="phone-wrap">
+      <div class="phone">
+
+        <div class="phone-top">
+          <div class="call-status">
+            <div class="call-avatar">PP</div>
+            <div class="call-info">
+              <div class="call-name">PropPulse Voice Agent</div>
+              <div class="call-sub"><span class="dot"></span> Active call · DFW Specialist</div>
+            </div>
+            <div class="call-timer" id="timer">0:00</div>
+          </div>
+          <div class="quick-prompts">
+            <button class="quick-btn" onclick="sendQuick('I want to invest in DFW')">Invest in DFW</button>
+            <button class="quick-btn" onclick="sendQuick('What are cap rates like?')">Cap rates</button>
+            <button class="quick-btn" onclick="sendQuick('Tell me about Plano vs Frisco')">Plano vs Frisco</button>
+            <button class="quick-btn" onclick="sendQuick('I want to book a consultation')">Book a call</button>
+          </div>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="input-area">
+          <div class="input-row">
+            <textarea
+              class="input-box"
+              id="input"
+              placeholder="Ask about DFW cap rates, neighborhoods, rents..."
+              rows="1"
+              onkeydown="handleKey(event)"
+              oninput="autoResize(this)"
+            ></textarea>
+            <button class="send-btn" id="sendBtn" onclick="send()" aria-label="Send">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+          <div class="end-call-row">
+            <button class="end-call-btn" onclick="endCall()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              End Call · New Demo
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="data-card">
+        <div class="data-card-title">Live DFW Market Data</div>
+        <div class="stat-row"><span class="stat-label">Metro Median Price</span><span class="stat-val accent">$420K</span></div>
+        <div class="stat-row"><span class="stat-label">YoY Price Change</span><span class="stat-val">-3.8%</span></div>
+        <div class="stat-row"><span class="stat-label">Active Listings</span><span class="stat-val accent">26,000+</span></div>
+        <div class="stat-row"><span class="stat-label">Best Cap Rate</span><span class="stat-val accent">5.5%</span></div>
+        <div class="stat-row"><span class="stat-label">Avg Apartment Rent</span><span class="stat-val">$1,577/mo</span></div>
+        <div class="stat-row"><span class="stat-label">Mortgage Rate (30yr)</span><span class="stat-val">~6.2%</span></div>
+        <div class="stat-row"><span class="stat-label">Months of Inventory</span><span class="stat-val accent">4.1 mo</span></div>
+        <div class="stat-row"><span class="stat-label">Population Growth</span><span class="stat-val">150K/yr</span></div>
+      </div>
+
+      <div class="data-card">
+        <div class="data-card-title">What this demo shows</div>
+        <div class="stat-row"><span class="stat-label">Lead qualification</span><span class="stat-val accent">✓</span></div>
+        <div class="stat-row"><span class="stat-label">Market Q&amp;A (PropPulse data)</span><span class="stat-val accent">✓</span></div>
+        <div class="stat-row"><span class="stat-label">Appointment booking flow</span><span class="stat-val accent">✓</span></div>
+        <div class="stat-row"><span class="stat-label">SMS follow-up (simulated)</span><span class="stat-val accent">✓</span></div>
+        <div class="stat-row"><span class="stat-label">24/7 availability</span><span class="stat-val accent">✓</span></div>
+      </div>
+
+      <p class="disclaimer">
+        This demo uses PropPulse's DFW market intelligence data.<br/>
+        Production version answers real phone calls via Vapi + Twilio.<br/><br/>
+        <a href="index.html">proppulse.online</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    /* ── Scripted offline responses ─────────────────────────────────────────── */
+    const SCRIPTS = [
+      {
+        keys: ['buy', 'home', 'house', 'purchase', 'buying'],
+        reply: "Great — DFW is one of the most active buyer markets in the country. Are you looking for a primary residence or an investment? And what's your rough price range — under $400K, $400–600K, or higher?"
+      },
+      {
+        keys: ['invest', 'investment', 'roi', 'passive', 'rental property'],
+        reply: "DFW is a strong play right now. Multifamily cap rates are averaging 5.5% metro-wide, with South Dallas and Mesquite hitting 6–6.5%. SFR in Garland and Irving is also performing well. What's your target hold period?"
+      },
+      {
+        keys: ['cap rate', 'cap', 'yield', 'return on investment'],
+        reply: "Metro-wide cap rates are at 5.5%. Best submarkets for yield: Mesquite (6.2%), Garland (6.0%), South Dallas (6.5%). Tightest markets: Frisco (4.4%), Plano (4.7%), Southlake (4.2%). Want a full submarket breakdown?"
+      },
+      {
+        keys: ['plano', 'frisco', 'comparison', 'vs', 'better', 'compare'],
+        reply: "Plano vs Frisco: Plano has lower entry prices (~$420K median SFR) and solid cap rates at 4.7%. Frisco is higher growth — median $485K — but you're paying an appreciation premium. For cash flow today, Plano wins. For 5-year upside, Frisco has the edge."
+      },
+      {
+        keys: ['rent', 'rental', 'monthly', 'lease', 'tenant'],
+        reply: "DFW rental market: median apartment rent is $1,577/mo. SFR rentals run $1,900–2,400 depending on submarket. Best rent-to-price ratios: Mesquite, Garland, and South Dallas. YoY rent growth is +4.2% metro-wide."
+      },
+      {
+        keys: ['book', 'appointment', 'schedule', 'consult', 'consultation', 'meeting', 'call', 'tuesday', 'wednesday', 'thursday', 'time', 'slot', 'calendar', 'availability'],
+        reply: "Absolutely! I have availability Tuesday at 10am, Wednesday at 2pm, and Thursday at 4pm CST. Which works best? Once you confirm, I'll send a calendar invite and a PropPulse market brief to your email — all before we hang up."
+      },
+      {
+        keys: ['neighborhood', 'area', 'where', 'location', 'submarket', 'suburb', 'district'],
+        reply: "Hottest submarkets by investment activity: (1) Mesquite — high yields, rising rents; (2) Irving — strong employment base, improving cap rates; (3) Fort Worth Near Southside — rapid gentrification, rent growth 6%+ YoY. Want detail on any of these?"
+      },
+      {
+        keys: ['sell', 'selling', 'list', 'listing', 'market my'],
+        reply: "DFW has 4.1 months of inventory right now — a balanced-to-seller market in most submarkets. Days on market average 38 days metro-wide. Frisco and Prosper are moving fastest at 22–28 days. When are you looking to list?"
+      },
+      {
+        keys: ['report', 'data', 'analysis', 'intelligence', 'research'],
+        reply: "PropPulse reports are 9-section documents: population trends, employment, housing inventory, rent comps, neighborhood analysis, and financial models — all DFW-specific. 15+ verified data sources, delivered in 24 hours. Want me to send you a free sample?"
+      },
+      {
+        keys: ['price', 'median', 'cost', 'expensive', 'affordable', 'cheap', 'value'],
+        reply: "DFW metro median home price is $420K as of April 2026, down ~3.8% YoY as inventory normalized. Most affordable: Mesquite ($295K), Garland ($320K), Balch Springs ($275K). Premium: Southlake ($1.1M), Highland Park ($2.4M), Prosper ($580K)."
+      },
+      {
+        keys: ['multifamily', 'apartment', 'duplex', 'fourplex', 'units'],
+        reply: "Multifamily in DFW is performing well. Class B assets in Mesquite and Garland are trading at 6–6.5% cap rates with strong occupancy at 94–96%. The build-to-rent market in Frisco and McKinney is also worth watching — institutional demand is high."
+      },
+      {
+        keys: ['mckinney', 'allen', 'prosper', 'celina', 'north'],
+        reply: "North DFW suburbs are experiencing strong population growth — McKinney alone added 18,000 residents last year. Cap rates are tighter (4.8–5.2%) but rent growth is outpacing the metro average. Great for long-term appreciation plays."
+      },
+      {
+        keys: ['hello', 'hi', 'hey', 'start', 'begin', 'help'],
+        reply: "Hey, great to connect! I'm your PropPulse DFW intelligence agent. I can answer questions about cap rates, rent comps, neighborhoods, deal underwriting — and book you a consultation with our team. What's on your mind?"
+      },
+    ];
+
+    const FALLBACKS = [
+      "That's a great question. Based on current PropPulse data, I'd want to pull the specifics. Can you tell me more about the area or property type you're focused on?",
+      "I want to make sure I give you the most accurate picture. Are you thinking about a specific submarket — North Dallas, Fort Worth, or a suburb like McKinney or Allen?",
+      "Good question. The full answer depends on your investment thesis — are you optimizing for cash flow, appreciation, or a blend of both?",
+      "Let me pull that. PropPulse tracks 15+ data sources for DFW specifically. Can you give me a bit more context on what you're looking at — residential, commercial, or mixed-use?",
+    ];
+
+    let fallbackIdx = 0;
+
+    function getReply(msg) {
+      const lower = msg.toLowerCase();
+      for (const s of SCRIPTS) {
+        if (s.keys.some(k => lower.includes(k))) return s.reply;
+      }
+      const reply = FALLBACKS[fallbackIdx % FALLBACKS.length];
+      fallbackIdx++;
+      return reply;
+    }
+
+    /* ── Timer ──────────────────────────────────────────────────────────────── */
+    let timerInterval = null;
+    let seconds = 0;
+
+    function startTimer() {
+      seconds = 0;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        seconds++;
+        const m = Math.floor(seconds / 60);
+        const s = String(seconds % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `${m}:${s}`;
+      }, 1000);
+    }
+
+    /* ── UI helpers ─────────────────────────────────────────────────────────── */
+    function addMessage(text, role) {
+      const container = document.getElementById('messages');
+      const wrap = document.createElement('div');
+      wrap.className = `msg msg--${role}`;
+
+      const label = document.createElement('div');
+      label.className = 'msg-label';
+      label.textContent = role === 'agent' ? 'PropPulse Agent' : 'You';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      bubble.textContent = text;
+
+      wrap.appendChild(label);
+      wrap.appendChild(bubble);
+      container.appendChild(wrap);
+      container.scrollTop = container.scrollHeight;
+      return bubble;
+    }
+
+    function showTyping() {
+      const container = document.getElementById('messages');
+      const wrap = document.createElement('div');
+      wrap.className = 'msg msg--agent';
+      wrap.id = 'typing-indicator';
+
+      const label = document.createElement('div');
+      label.className = 'msg-label';
+      label.textContent = 'PropPulse Agent';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'typing-bubble';
+      bubble.innerHTML = '<span></span><span></span><span></span>';
+
+      wrap.appendChild(label);
+      wrap.appendChild(bubble);
+      container.appendChild(wrap);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function hideTyping() {
+      const el = document.getElementById('typing-indicator');
+      if (el) el.remove();
+    }
+
+    /* ── Simulated streaming ────────────────────────────────────────────────── */
+    let isWaiting = false;
+
+    async function simulateStream(bubble, text, container) {
+      const words = text.split(' ');
+      for (let i = 0; i < words.length; i++) {
+        await new Promise(r => setTimeout(r, 35 + Math.random() * 25));
+        bubble.textContent += (i === 0 ? '' : ' ') + words[i];
+        container.scrollTop = container.scrollHeight;
+      }
+    }
+
+    /* ── Send ───────────────────────────────────────────────────────────────── */
+    async function send(text) {
+      const input = document.getElementById('input');
+      const msg = (text || input.value).trim();
+      if (!msg || isWaiting) return;
+
+      input.value = '';
+      input.style.height = 'auto';
+      isWaiting = true;
+      document.getElementById('sendBtn').disabled = true;
+
+      addMessage(msg, 'user');
+
+      const thinkMs = 600 + Math.random() * 800;
+      await new Promise(r => setTimeout(r, thinkMs));
+      showTyping();
+      await new Promise(r => setTimeout(r, 900 + Math.random() * 600));
+      hideTyping();
+
+      const reply = getReply(msg);
+      const container = document.getElementById('messages');
+      const bubble = addMessage('', 'agent');
+      await simulateStream(bubble, reply, container);
+
+      isWaiting = false;
+      document.getElementById('sendBtn').disabled = false;
+      input.focus();
+    }
+
+    function sendQuick(text) { send(text); }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    }
+
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    }
+
+    /* ── End / reset ────────────────────────────────────────────────────────── */
+    function endCall() {
+      clearInterval(timerInterval);
+      fallbackIdx = 0;
+      document.getElementById('messages').innerHTML = '';
+      document.getElementById('timer').textContent = '0:00';
+      initDemo();
+    }
+
+    /* ── Init ───────────────────────────────────────────────────────────────── */
+    async function initDemo() {
+      startTimer();
+      isWaiting = true;
+      document.getElementById('sendBtn').disabled = true;
+
+      await new Promise(r => setTimeout(r, 600));
+      showTyping();
+      await new Promise(r => setTimeout(r, 1200));
+      hideTyping();
+
+      const greeting = "Hey! You've reached PropPulse. I'm your DFW real estate intelligence agent — I can answer market questions, qualify your needs, and get you booked with our team. Are you looking to buy, sell, or invest in DFW?";
+      const container = document.getElementById('messages');
+      const bubble = addMessage('', 'agent');
+      await simulateStream(bubble, greeting, container);
+
+      isWaiting = false;
+      document.getElementById('sendBtn').disabled = false;
+      document.getElementById('input').focus();
+    }
+
+    window.addEventListener('DOMContentLoaded', initDemo);
+  </script>
+</body>
+</html>

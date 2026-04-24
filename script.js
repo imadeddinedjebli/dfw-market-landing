@@ -16,6 +16,16 @@
     window.scrollTo({ top: top, behavior: 'smooth' });
     // Close mobile nav if open
     closeNav();
+    // Pre-select plan in contact form if the link carries a data-plan value
+    var plan = link.getAttribute('data-plan');
+    if (plan) {
+      var sel = document.getElementById('cf-service');
+      if (sel) {
+        sel.value = plan;
+        sel.classList.add('has-value');
+        sel.dispatchEvent(new Event('change'));
+      }
+    }
   });
 
   /* ── Nav: shadow on scroll + active state ───────────────────────────────── */
@@ -143,7 +153,7 @@
     document.head.appendChild(style);
 
     var fadeTargets = document.querySelectorAll(
-      '.service-card, .why-item, .pricing-card, .client-card'
+      '.service-card, .why-item, .pricing-card, .client-card, .fade-card'
     );
     fadeTargets.forEach(function (el) { el.classList.add('fade-in'); });
 
