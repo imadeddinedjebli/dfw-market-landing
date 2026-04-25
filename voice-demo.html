@@ -65,16 +65,24 @@
       letter-spacing: 0.04em;
     }
     .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 0.8125rem;
       color: var(--muted);
       text-decoration: none;
-      margin-bottom: 16px;
-      transition: color 0.2s;
+      background: rgba(17,17,17,0.85);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 6px 14px 6px 10px;
+      backdrop-filter: blur(8px);
+      transition: color 0.2s, border-color 0.2s;
     }
-    .back-link:hover { color: var(--accent); }
+    .back-link:hover { color: var(--accent); border-color: var(--border); }
     .live-badge {
       display: inline-flex;
       align-items: center;
@@ -492,76 +500,258 @@
   </div>
 
   <script>
-    /* ── Scripted offline responses ─────────────────────────────────────────── */
-    const SCRIPTS = [
+    /* ── Qualification state ────────────────────────────────────────────────── */
+    const S = {
+      stage: 'intent',   // intent → name → area → budget → preapproval → timeline → book → done
+      intent: null,      // 'buyer' | 'seller' | 'investor'
+      name: null,
+    };
+
+    /* ── Market knowledge base ──────────────────────────────────────────────── */
+    const MARKET = [
       {
-        keys: ['buy', 'home', 'house', 'purchase', 'buying'],
-        reply: "Great — DFW is one of the most active buyer markets in the country. Are you looking for a primary residence or an investment? And what's your rough price range — under $400K, $400–600K, or higher?"
+        k: ['cap rate', 'cap rates', 'yield', 'return on invest', 'roi'],
+        r: "Metro cap rates average 5.5%. Best yields: Mesquite at 6.2%, South Dallas at 6.5%, Garland at 6.0%. Frisco and Plano are tighter at 4.4–4.7% — you're paying an appreciation premium there. Which submarket are you evaluating?"
       },
       {
-        keys: ['invest', 'investment', 'roi', 'passive', 'rental property'],
-        reply: "DFW is a strong play right now. Multifamily cap rates are averaging 5.5% metro-wide, with South Dallas and Mesquite hitting 6–6.5%. SFR in Garland and Irving is also performing well. What's your target hold period?"
+        k: ['plano vs frisco', 'frisco vs plano', 'plano or frisco', 'frisco or plano'],
+        r: "Plano: $420K median, 4.7% cap rate — solid cash flow today. Frisco: $485K median, 4.4% cap — tighter yield but stronger appreciation runway. Cash flow now: Plano. Five-year upside: Frisco. Depends on your thesis."
       },
       {
-        keys: ['cap rate', 'cap', 'yield', 'return on investment'],
-        reply: "Metro-wide cap rates are at 5.5%. Best submarkets for yield: Mesquite (6.2%), Garland (6.0%), South Dallas (6.5%). Tightest markets: Frisco (4.4%), Plano (4.7%), Southlake (4.2%). Want a full submarket breakdown?"
+        k: ['plano', 'frisco'],
+        r: "Both are strong DFW submarkets. Plano offers better cash flow at $420K median and 4.7% cap rates. Frisco commands a premium at $485K but has higher appreciation potential. What's your priority — yield today or growth over time?"
       },
       {
-        keys: ['plano', 'frisco', 'comparison', 'vs', 'better', 'compare'],
-        reply: "Plano vs Frisco: Plano has lower entry prices (~$420K median SFR) and solid cap rates at 4.7%. Frisco is higher growth — median $485K — but you're paying an appreciation premium. For cash flow today, Plano wins. For 5-year upside, Frisco has the edge."
+        k: ['rent', 'rents', 'rental market', 'lease', 'tenant', 'renting'],
+        r: "DFW apartment rents average $1,577/month. SFR rentals run $1,900–2,400 depending on submarket. Year-over-year rent growth is 4.2% metro-wide. Mesquite and Garland have the best rent-to-price ratios right now."
       },
       {
-        keys: ['rent', 'rental', 'monthly', 'lease', 'tenant'],
-        reply: "DFW rental market: median apartment rent is $1,577/mo. SFR rentals run $1,900–2,400 depending on submarket. Best rent-to-price ratios: Mesquite, Garland, and South Dallas. YoY rent growth is +4.2% metro-wide."
+        k: ['home price', 'median price', 'home value', 'how much', 'affordable', 'expensive', 'cost to buy'],
+        r: "DFW metro median is $420K — down 3.8% year-over-year as inventory normalized. Most affordable: Mesquite at $295K, Garland at $320K, Balch Springs at $275K. Premium tier: Southlake, Highland Park, Prosper."
       },
       {
-        keys: ['book', 'appointment', 'schedule', 'consult', 'consultation', 'meeting', 'call', 'tuesday', 'wednesday', 'thursday', 'time', 'slot', 'calendar', 'availability'],
-        reply: "Absolutely! I have availability Tuesday at 10am, Wednesday at 2pm, and Thursday at 4pm CST. Which works best? Once you confirm, I'll send a calendar invite and a PropPulse market brief to your email — all before we hang up."
+        k: ['mesquite', 'garland', 'south dallas', 'irving', 'balch springs'],
+        r: "These are DFW's strongest cash-flow submarkets. Mesquite and Garland deliver 6–6.5% cap rates with 94–96% occupancy and median entries under $320K. Irving has a strong employment base with cap rates around 5.8%."
       },
       {
-        keys: ['neighborhood', 'area', 'where', 'location', 'submarket', 'suburb', 'district'],
-        reply: "Hottest submarkets by investment activity: (1) Mesquite — high yields, rising rents; (2) Irving — strong employment base, improving cap rates; (3) Fort Worth Near Southside — rapid gentrification, rent growth 6%+ YoY. Want detail on any of these?"
+        k: ['mckinney', 'allen', 'prosper', 'celina', 'north dallas corridor'],
+        r: "North DFW corridor absorbed over 18,000 new residents last year. Cap rates are tighter at 4.8–5.2% but rent growth outpaces the metro average. Strong appreciation play with a 5-plus year hold."
       },
       {
-        keys: ['sell', 'selling', 'list', 'listing', 'market my'],
-        reply: "DFW has 4.1 months of inventory right now — a balanced-to-seller market in most submarkets. Days on market average 38 days metro-wide. Frisco and Prosper are moving fastest at 22–28 days. When are you looking to list?"
+        k: ['fort worth', 'westoplex', 'arlington', 'haltom city', 'benbrook'],
+        r: "Fort Worth Westoplex is a top growth corridor. Lockheed, American Airlines HQ, and a growing logistics sector drive population inflows. Multifamily cap rates run 5.5–6% with solid fundamentals throughout."
       },
       {
-        keys: ['report', 'data', 'analysis', 'intelligence', 'research'],
-        reply: "PropPulse reports are 9-section documents: population trends, employment, housing inventory, rent comps, neighborhood analysis, and financial models — all DFW-specific. 15+ verified data sources, delivered in 24 hours. Want me to send you a free sample?"
+        k: ['multifamily', 'apartment complex', 'duplex', 'fourplex', 'multi-family', 'units', 'complex'],
+        r: "DFW multifamily is solid. Class B in Mesquite and Garland: 6–6.5% cap rates, 94–96% occupancy. Retail cap rates average 6.7% with asking rents at $24.91 per square foot. Build-to-rent in Frisco and McKinney has strong institutional demand."
       },
       {
-        keys: ['price', 'median', 'cost', 'expensive', 'affordable', 'cheap', 'value'],
-        reply: "DFW metro median home price is $420K as of April 2026, down ~3.8% YoY as inventory normalized. Most affordable: Mesquite ($295K), Garland ($320K), Balch Springs ($275K). Premium: Southlake ($1.1M), Highland Park ($2.4M), Prosper ($580K)."
+        k: ['inventory', 'active listings', 'days on market', 'market conditions', 'supply'],
+        r: "DFW has 4.1 months of inventory — balanced to slightly seller-favorable in most submarkets. Over 26,000 active listings metro-wide. Average days on market is 38; Frisco and Prosper are moving fastest at 22–28 days."
       },
       {
-        keys: ['multifamily', 'apartment', 'duplex', 'fourplex', 'units'],
-        reply: "Multifamily in DFW is performing well. Class B assets in Mesquite and Garland are trading at 6–6.5% cap rates with strong occupancy at 94–96%. The build-to-rent market in Frisco and McKinney is also worth watching — institutional demand is high."
+        k: ['mortgage rate', 'interest rate', 'financing', 'loan', 'lender', 'pre-approv', 'preapprov'],
+        r: "30-year fixed rates are running around 6.2%. Combined with DFW's recent price correction, monthly payments on a $420K home are back near 2021 levels. Are you currently working with a lender?"
       },
       {
-        keys: ['mckinney', 'allen', 'prosper', 'celina', 'north'],
-        reply: "North DFW suburbs are experiencing strong population growth — McKinney alone added 18,000 residents last year. Cap rates are tighter (4.8–5.2%) but rent growth is outpacing the metro average. Great for long-term appreciation plays."
+        k: ['population', 'migration', 'people moving', 'growth corridor', 'net in-migration'],
+        r: "DFW absorbs roughly 150,000 net new residents per year — one of the highest rates in the US. Strongest inflow corridors: Plano, McKinney, Allen, Frisco, and Fort Worth Westoplex. That's the engine behind sustained rent demand."
       },
       {
-        keys: ['hello', 'hi', 'hey', 'start', 'begin', 'help'],
-        reply: "Hey, great to connect! I'm your PropPulse DFW intelligence agent. I can answer questions about cap rates, rent comps, neighborhoods, deal underwriting — and book you a consultation with our team. What's on your mind?"
+        k: ['proppulse report', 'market report', 'intelligence report', 'your report', 'what do you offer'],
+        r: "PropPulse reports cover 9 sections: population, employment, housing inventory, rent comps, neighborhood analysis, and financial models — all DFW-specific. 15-plus verified sources, delivered in 24 hours. Want me to send you the free sample?"
+      },
+      {
+        k: ['wholesale', 'distressed', 'off-market', 'off market', 'flip', 'flipping', 'foreclosure'],
+        r: "Distressed inventory in DFW is concentrated in South Dallas, Mesquite, and Garland as foreclosure activity picks up from 2024 lows. PropPulse tracks distressed concentration by zip code. What's your acquisition price target?"
+      },
+      {
+        k: ['sell', 'selling', 'list my', 'listing my', 'put on market'],
+        r: "DFW has 4.1 months of inventory and an average of 38 days on market — solid conditions for a well-priced listing. Frisco and Prosper are the fastest-moving submarkets at 22–28 days. What area are you looking to sell in?"
+      },
+      {
+        k: ['hello', 'hi ', 'hey ', 'howdy', 'good morning', 'good afternoon', 'good evening'],
+        r: "Hey — glad you reached out! I'm your PropPulse DFW intelligence agent. I can answer cap rate questions, walk you through specific submarkets, and get you booked with our team. Are you looking to buy, sell, or invest in DFW?"
       },
     ];
 
+    /* ── Intent detection ───────────────────────────────────────────────────── */
+    function detectIntent(lower) {
+      if (/\b(buy|buying|purchase|purchas|primary residence|looking for a home|find a home)\b/.test(lower)) return 'buyer';
+      if (/\b(sell|selling|list|listing|put on market)\b/.test(lower)) return 'seller';
+      if (/\b(invest|investing|investment|rental property|cash flow|passive income|deal|asset|multifamily|duplex|commercial|cap rate|yield|roi)\b/.test(lower)) return 'investor';
+      return null;
+    }
+
+    /* ── Name extraction ────────────────────────────────────────────────────── */
+    function extractName(msg) {
+      const patterns = [
+        /(?:my name is|i'?m|i am|call me|it'?s|this is)\s+([A-Z][a-z]{1,20})/i,
+        /^([A-Z][a-z]{1,20})(?:[,.!]|\s*$)/,
+      ];
+      for (const p of patterns) {
+        const m = msg.match(p);
+        if (m && m[1].length > 1 && !['The', 'Yes', 'No', 'Hey', 'Hi'].includes(m[1])) return m[1];
+      }
+      return null;
+    }
+
+    /* ── Qualification replies ──────────────────────────────────────────────── */
+    function intentReply(intent) {
+      if (intent === 'buyer') return "Great — DFW inventory is up and prices have stabilized, so it's a solid window to buy. What's your name so I can pull the right data for you?";
+      if (intent === 'seller') return "Good timing — DFW has 4.1 months of inventory and average days on market is 38. Solid conditions for a well-priced listing. What's your name?";
+      return "Perfect — DFW is one of the top cash-flow markets in the country right now. What's your name so I can walk you through the best submarkets?";
+    }
+
+    function nameReply(name) {
+      return `Nice to meet you, ${name}. Which area of DFW are you focused on — North Dallas, Fort Worth, the suburbs like Plano or McKinney, or are you still narrowing it down?`;
+    }
+
+    function areaReply(name) {
+      const n = name ? `${name}, what` : 'What';
+      return `${n}'s your budget range — under $400K, between $400K and $700K, or are you looking at larger assets above that?`;
+    }
+
+    function budgetReply(intent, name) {
+      const n = name || '';
+      if (intent === 'buyer') return `${n ? n + ', are' : 'Are'} you currently pre-approved with a lender, or still in the early stages of financing?`;
+      return `${n ? n + ', what' : 'What'}'s your target hold period — optimizing for cash flow today, appreciation over 5-plus years, or a blend of both?`;
+    }
+
+    function preapprovalReply(name) {
+      const n = name ? `${name}, what` : 'What';
+      return `Understood. ${n}'s your timeline — are you looking to move in the next 30–60 days, or still in the early research stage?`;
+    }
+
+    function timelineReply(name) {
+      const n = name ? `${name}, based` : 'Based';
+      return `${n} on what you've shared, I'd love to get you on a 20-minute call with our team. I have Tuesday at 10am, Wednesday at 2pm, or Thursday at 4pm CST — any of those work?`;
+    }
+
+    function bookingReply(name) {
+      return `${name ? 'Perfect, ' + name + '!' : 'Perfect!'} What's the best email to send your calendar invite and a free PropPulse market brief to?`;
+    }
+
+    function confirmedReply(name) {
+      return `You're all set${name ? ', ' + name : ''}! You'll receive a confirmation and a sample PropPulse report within a few minutes. Our team is looking forward to the conversation. Anything else I can help with?`;
+    }
+
+    function closingReply(name) {
+      const n = name ? `, ${name}` : '';
+      return `It was a pleasure speaking with you${n}! Our team will be in touch shortly. Have a wonderful day, and don't hesitate to reach out anytime at proppulse.online. Take care!`;
+    }
+
+    /* ── Fallbacks ──────────────────────────────────────────────────────────── */
     const FALLBACKS = [
-      "That's a great question. Based on current PropPulse data, I'd want to pull the specifics. Can you tell me more about the area or property type you're focused on?",
-      "I want to make sure I give you the most accurate picture. Are you thinking about a specific submarket — North Dallas, Fort Worth, or a suburb like McKinney or Allen?",
+      "That's a great question. Can you tell me more about the area or property type you're focused on? I want to make sure I give you accurate PropPulse data.",
       "Good question. The full answer depends on your investment thesis — are you optimizing for cash flow, appreciation, or a blend of both?",
-      "Let me pull that. PropPulse tracks 15+ data sources for DFW specifically. Can you give me a bit more context on what you're looking at — residential, commercial, or mixed-use?",
+      "I want to get you the right picture. Are you focused on a specific submarket — North Dallas, Fort Worth, or one of the suburbs like Plano or Mesquite?",
+      "Let me make sure I point you in the right direction. Are you evaluating this as a primary residence, a rental property, or a commercial asset?",
     ];
-
     let fallbackIdx = 0;
 
+    /* ── Main reply function ────────────────────────────────────────────────── */
     function getReply(msg) {
       const lower = msg.toLowerCase();
-      for (const s of SCRIPTS) {
-        if (s.keys.some(k => lower.includes(k))) return s.reply;
+
+      // Market questions answered immediately at any stage
+      for (const s of MARKET) {
+        if (s.k.some(k => lower.includes(k))) return s.r;
       }
+
+      // Booking keywords jump to appointment flow at any stage
+      if (/\b(book|schedule|appointment|consult|meeting|tuesday|wednesday|thursday|10am|2pm|4pm|calendar|availability)\b/.test(lower)) {
+        if (S.stage !== 'book' && S.stage !== 'done') {
+          S.stage = 'book';
+          return timelineReply(S.name);
+        }
+        if (S.stage === 'book') {
+          S.stage = 'done';
+          return bookingReply(S.name);
+        }
+        return confirmedReply(S.name);
+      }
+
+      const intent = detectIntent(lower);
+      const name = extractName(msg);
+
+      // Intent stage
+      if (S.stage === 'intent') {
+        if (intent) {
+          S.intent = intent;
+          S.stage = 'name';
+          return intentReply(intent);
+        }
+        return "Are you looking to buy, sell, or invest in DFW? I can pull the most relevant data once I know what you're focused on.";
+      }
+
+      // Name stage — ask once, then move on if they don't share
+      if (S.stage === 'name') {
+        if (name) {
+          S.name = name;
+          S.stage = 'area';
+          return nameReply(name);
+        }
+        if (/\b(no|skip|pass|rather not|prefer not|doesn't matter|doesnt matter|anonymous|private|not share|no thanks|nope|just|move on)\b/.test(lower)) {
+          S.stage = 'area';
+          return "No problem at all! Which area of DFW are you focused on — North Dallas, Fort Worth, the suburbs like Plano or McKinney, or still narrowing it down?";
+        }
+        S.stage = 'name_retry';
+        return "What's your name? Totally optional — we can continue either way.";
+      }
+
+      // Name retry — one more try, then move on regardless
+      if (S.stage === 'name_retry') {
+        if (name) {
+          S.name = name;
+          S.stage = 'area';
+          return nameReply(name);
+        }
+        S.stage = 'area';
+        return "No worries at all! Which area of DFW are you focused on — North Dallas, Fort Worth, the suburbs, or still deciding?";
+      }
+
+      // Area stage — accept any response as the area answer
+      if (S.stage === 'area') {
+        S.stage = 'budget';
+        return areaReply(S.name);
+      }
+
+      // Budget stage
+      if (S.stage === 'budget') {
+        S.stage = 'preapproval';
+        return budgetReply(S.intent, S.name);
+      }
+
+      // Pre-approval / hold period stage
+      if (S.stage === 'preapproval') {
+        S.stage = 'timeline';
+        return preapprovalReply(S.name);
+      }
+
+      // Timeline stage
+      if (S.stage === 'timeline') {
+        S.stage = 'book';
+        return timelineReply(S.name);
+      }
+
+      // Booking — email collection
+      if (S.stage === 'book') {
+        S.stage = 'done';
+        return bookingReply(S.name);
+      }
+
+      // Done — confirm booking, then close on next reply
+      if (S.stage === 'done') {
+        S.stage = 'closing';
+        return confirmedReply(S.name);
+      }
+
+      // Closing — professional goodbye
+      if (S.stage === 'closing') {
+        return closingReply(S.name);
+      }
+
       const reply = FALLBACKS[fallbackIdx % FALLBACKS.length];
       fallbackIdx++;
       return reply;
@@ -683,6 +873,10 @@
     /* ── End / reset ────────────────────────────────────────────────────────── */
     function endCall() {
       clearInterval(timerInterval);
+      S.stage = 'intent';
+      S.intent = null;
+      S.name = null;
+      S.nameAsked = false;
       fallbackIdx = 0;
       document.getElementById('messages').innerHTML = '';
       document.getElementById('timer').textContent = '0:00';
@@ -700,7 +894,7 @@
       await new Promise(r => setTimeout(r, 1200));
       hideTyping();
 
-      const greeting = "Hey! You've reached PropPulse. I'm your DFW real estate intelligence agent — I can answer market questions, qualify your needs, and get you booked with our team. Are you looking to buy, sell, or invest in DFW?";
+      const greeting = "Hey — you've reached PropPulse. I'm your DFW real estate intelligence agent. I can answer market questions, walk you through specific submarkets, and get you booked with our team. Are you looking to buy, sell, or invest in DFW?";
       const container = document.getElementById('messages');
       const bubble = addMessage('', 'agent');
       await simulateStream(bubble, greeting, container);
