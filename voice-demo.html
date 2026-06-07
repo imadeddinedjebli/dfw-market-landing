@@ -403,6 +403,208 @@
       .phone-wrap { flex-shrink: 0; }
       .side-panel { margin-top: 0; max-width: 280px; }
     }
+
+    /* ── Hormozi form overlay ──────────────────────────────────────── */
+    #hzOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 0.25s ease;
+    }
+    #hzOverlay.active { display: flex; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .hz-card {
+      background: #111;
+      border: 1px solid rgba(0,191,255,0.22);
+      border-radius: 24px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      box-shadow: 0 0 100px rgba(0,191,255,0.12), 0 40px 80px rgba(0,0,0,0.7);
+      animation: slideUp 0.3s cubic-bezier(.16,1,.3,1);
+    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    /* LEFT — copy */
+    .hz-copy {
+      padding: 44px 40px;
+      border-right: 1px solid rgba(255,255,255,0.055);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hz-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,191,255,0.08);
+      border: 1px solid rgba(0,191,255,0.22);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      width: fit-content;
+    }
+    .hz-tag-dot { width:6px;height:6px;border-radius:50%;background:var(--accent); }
+    .hz-h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+    .hz-h1 em { font-style:normal; color:var(--accent); }
+    .hz-p {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: #b0bec5;
+      margin-bottom: 28px;
+    }
+    .hz-bullets { display:flex;flex-direction:column;gap:11px;margin-bottom:32px; }
+    .hz-b {
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:0.875rem;color:#d1d5db;line-height:1.5;
+    }
+    .hz-ck {
+      width:18px;height:18px;border-radius:50%;
+      background:rgba(0,191,255,0.13);
+      border:1px solid rgba(0,191,255,0.3);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;margin-top:1px;
+    }
+    .hz-ck svg{width:9px;height:9px;color:var(--accent);}
+    .hz-proof {
+      background: rgba(0,191,255,0.04);
+      border: 1px solid rgba(0,191,255,0.12);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .hz-quote {
+      font-size:0.8125rem;line-height:1.6;color:#9ca3af;font-style:italic;margin-bottom:8px;
+    }
+    .hz-attr { font-size:0.75rem;font-weight:600;color:var(--dim); }
+    .hz-attr span { color:var(--accent); }
+
+    /* RIGHT — form */
+    .hz-form-panel { padding: 44px 38px; }
+    .hz-form-title {
+      font-family:'Montserrat',sans-serif;font-size:1.125rem;
+      font-weight:900;margin-bottom:4px;
+    }
+    .hz-form-sub {
+      font-size:0.8125rem;color:var(--muted);margin-bottom:26px;line-height:1.5;
+    }
+    .hz-form-sub strong { color:var(--accent); }
+
+    .hf { margin-bottom: 14px; }
+    .hl {
+      display:block;font-size:0.6875rem;font-weight:700;
+      letter-spacing:0.07em;text-transform:uppercase;
+      color:var(--dim);margin-bottom:5px;
+    }
+    .hi, .hs {
+      width:100%;background:#1a1a1a;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:10px;padding:11px 13px;
+      color:var(--text);font-family:'Inter',sans-serif;
+      font-size:0.9375rem;outline:none;
+      transition:border-color 0.18s,box-shadow 0.18s;
+    }
+    .hi::placeholder{color:#3a4048;}
+    .hi:focus,.hs:focus{
+      border-color:rgba(0,191,255,0.45);
+      box-shadow:0 0 0 3px rgba(0,191,255,0.07);
+    }
+    .hs{appearance:none;cursor:pointer;}
+    .hs option{background:#1a1a1a;}
+
+    .hfr{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+
+    /* intent pills */
+    .hint-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
+    .hint-radio{display:none;}
+    .hint-lbl{
+      display:flex;align-items:center;justify-content:center;
+      padding:10px 4px;background:#1a1a1a;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:9px;font-size:0.8125rem;
+      font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s;
+    }
+    .hint-radio:checked+.hint-lbl{
+      border-color:var(--accent);color:var(--accent);
+      background:rgba(0,191,255,0.08);
+    }
+    .hint-lbl:hover{border-color:rgba(0,191,255,0.3);color:var(--accent);}
+
+    .hz-cta {
+      width:100%;background:var(--accent);border:none;
+      border-radius:12px;padding:16px;color:#000;
+      font-family:'Montserrat',sans-serif;font-size:0.9375rem;
+      font-weight:900;letter-spacing:0.01em;cursor:pointer;
+      transition:all 0.2s;margin-top:6px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .hz-cta:hover{background:#00d4ff;box-shadow:0 0 28px rgba(0,191,255,0.35);transform:translateY(-1px);}
+    .hz-cta:active{transform:translateY(0);box-shadow:none;}
+    .hz-cta:disabled{opacity:0.45;cursor:not-allowed;transform:none;box-shadow:none;}
+
+    .hz-trust{
+      display:flex;align-items:center;justify-content:center;
+      gap:5px;margin-top:12px;
+    }
+    .hz-trust svg{color:var(--dim);width:11px;height:11px;}
+    .hz-trust span{font-size:0.71875rem;color:var(--dim);}
+
+    /* success */
+    #hzSuccess{display:none;text-align:center;padding:20px 0;}
+    .hzs-icon{
+      width:64px;height:64px;border-radius:50%;
+      background:rgba(0,191,255,0.1);border:2px solid var(--accent);
+      display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+    }
+    .hzs-t{font-family:'Montserrat',sans-serif;font-size:1.25rem;font-weight:900;margin-bottom:10px;}
+    .hzs-s{font-size:0.875rem;color:var(--muted);line-height:1.7;}
+    .hzs-s strong{color:var(--accent);}
+    .hzs-close{
+      margin-top:22px;background:transparent;
+      border:1px solid rgba(255,255,255,0.12);border-radius:100px;
+      padding:8px 22px;color:var(--muted);font-size:0.8125rem;
+      cursor:pointer;transition:all 0.2s;
+    }
+    .hzs-close:hover{border-color:var(--accent);color:var(--accent);}
+
+    /* close X */
+    .hz-close-btn{
+      position:absolute;top:18px;right:18px;
+      width:32px;height:32px;border-radius:50%;
+      background:rgba(255,255,255,0.06);border:none;
+      color:var(--muted);font-size:1.1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all 0.2s;z-index:10;
+    }
+    .hz-close-btn:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+    .hz-card{position:relative;}
+
+    @media(max-width:680px){
+      .hz-card{grid-template-columns:1fr;}
+      .hz-copy{display:none;}
+      .hz-form-panel{padding:32px 24px;}
+    }
   </style>
 </head>
 <body>
@@ -499,13 +701,219 @@
 
   </div>
 
+  <!-- ── Hormozi lead form overlay ─────────────────────────────────── -->
+  <div id="hzOverlay">
+    <div class="hz-card">
+      <button class="hz-close-btn" onclick="closeHz()" aria-label="Close">✕</button>
+
+      <!-- LEFT COPY -->
+      <div class="hz-copy">
+        <div class="hz-tag"><span class="hz-tag-dot"></span>You just qualified</div>
+        <h2 class="hz-h1">
+          You're 15 minutes away<br/>
+          from knowing <em>exactly</em><br/>
+          where your money goes.
+        </h2>
+        <p class="hz-p">
+          Most DFW investors leave <strong>$30K–$80K</strong> on the table
+          using metro averages instead of submarket data. This brief fixes that.
+          Free. No pitch.
+        </p>
+        <div class="hz-bullets">
+          <div class="hz-b">
+            <div class="hz-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>The 3 DFW submarkets delivering <strong>6%+ cap rates</strong> right now</span>
+          </div>
+          <div class="hz-b">
+            <div class="hz-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Where prices are still <strong>5–8% below peak</strong> — and moving fast</span>
+          </div>
+          <div class="hz-b">
+            <div class="hz-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Your personalized brief matched to your <strong>budget + target area</strong></span>
+          </div>
+          <div class="hz-b">
+            <div class="hz-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>A booked 15-min consultation with a DFW specialist — <strong>at no cost</strong></span>
+          </div>
+        </div>
+        <div class="hz-proof">
+          <div class="hz-quote">"I was about to overpay by $40K on a Mesquite fourplex. PropPulse's submarket data showed me a better deal two blocks away. One number paid for a year of service."</div>
+          <div class="hz-attr">Marcus T. · <span>DFW Multifamily Investor</span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT FORM -->
+      <div class="hz-form-panel">
+        <div id="hzFormContent">
+          <div class="hz-form-title">Lock In Your Free Brief</div>
+          <div class="hz-form-sub">Takes 30 seconds. <strong>No spam. No pitch.</strong></div>
+
+          <form id="hzForm" onsubmit="submitHz(event)" novalidate>
+
+            <div class="hfr">
+              <div class="hf">
+                <label class="hl" for="hzName">Name</label>
+                <input class="hi" type="text" id="hzName" placeholder="First name" required />
+              </div>
+              <div class="hf">
+                <label class="hl" for="hzPhone">Phone</label>
+                <input class="hi" type="tel" id="hzPhone" placeholder="(214) 555-0100" />
+              </div>
+            </div>
+
+            <div class="hf">
+              <label class="hl" for="hzEmail">Email</label>
+              <input class="hi" type="email" id="hzEmail" placeholder="you@email.com" required />
+            </div>
+
+            <div class="hf">
+              <label class="hl">I'm looking to…</label>
+              <div class="hint-row">
+                <input type="radio" class="hint-radio" name="hzIntent" id="hzBuy" value="Buy" />
+                <label class="hint-lbl" for="hzBuy">Buy</label>
+                <input type="radio" class="hint-radio" name="hzIntent" id="hzSell" value="Sell" />
+                <label class="hint-lbl" for="hzSell">Sell</label>
+                <input type="radio" class="hint-radio" name="hzIntent" id="hzInvest" value="Invest" />
+                <label class="hint-lbl" for="hzInvest">Invest</label>
+              </div>
+            </div>
+
+            <div class="hfr">
+              <div class="hf">
+                <label class="hl" for="hzBudget">Budget</label>
+                <select class="hs" id="hzBudget">
+                  <option value="" disabled selected>Select…</option>
+                  <option>Under $300K</option>
+                  <option>$300K – $500K</option>
+                  <option>$500K – $1M</option>
+                  <option>$1M – $3M</option>
+                  <option>$3M+</option>
+                </select>
+              </div>
+              <div class="hf">
+                <label class="hl" for="hzArea">Target Area</label>
+                <select class="hs" id="hzArea">
+                  <option value="" disabled selected>Select…</option>
+                  <option>Plano / Frisco</option>
+                  <option>McKinney / Allen</option>
+                  <option>Fort Worth / Westoplex</option>
+                  <option>Mesquite / Garland</option>
+                  <option>Arlington / Grand Prairie</option>
+                  <option>South Dallas</option>
+                  <option>Still deciding</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="hz-cta" id="hzCtaBtn">
+              <span id="hzCtaText">Send Me the Brief — It's Free</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </form>
+
+          <div class="hz-trust">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Your info stays private. We don't sell data. Period.</span>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div id="hzSuccess">
+          <div class="hzs-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="hzs-t">You're locked in.</div>
+          <div class="hzs-s">
+            Our team will reach out within 24 hours to<br/>
+            confirm your consultation.<br/><br/>
+            <strong>The data's already in your corner.</strong>
+          </div>
+          <button class="hzs-close" onclick="closeHz()">Back to chat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ── Qualification state ────────────────────────────────────────────────── */
     const S = {
       stage: 'intent',   // intent → name → area → budget → preapproval → timeline → book → done
       intent: null,      // 'buyer' | 'seller' | 'investor'
       name: null,
+      appointmentTime: null,
     };
+
+    /* ── Email detection ───────────────────────────────────────────────────── */
+    function extractEmail(text) {
+      const m = text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+      return m ? m[0] : null;
+    }
+
+    function showHermoziForm(email, name, intent) {
+      // Pre-fill known fields
+      if (email) document.getElementById('hzEmail').value = email;
+      if (name)  document.getElementById('hzName').value  = name;
+      if (intent) {
+        const map = { buyer: 'hzBuy', seller: 'hzSell', investor: 'hzInvest' };
+        const id = map[intent.toLowerCase()];
+        if (id) document.getElementById(id).checked = true;
+      }
+      // Reset form state
+      document.getElementById('hzFormContent').style.display = '';
+      document.getElementById('hzSuccess').style.display = 'none';
+      document.getElementById('hzCtaBtn').disabled = false;
+      document.getElementById('hzCtaText').textContent = 'Send Me the Brief — It\'s Free';
+      // Show overlay (slight delay so chat message renders first)
+      setTimeout(() => document.getElementById('hzOverlay').classList.add('active'), 600);
+    }
+
+    function closeHz() {
+      document.getElementById('hzOverlay').classList.remove('active');
+    }
+
+    async function submitHz(e) {
+      e.preventDefault();
+      const btn  = document.getElementById('hzCtaBtn');
+      const txt  = document.getElementById('hzCtaText');
+      const name   = document.getElementById('hzName').value.trim();
+      const email  = document.getElementById('hzEmail').value.trim();
+      const phone  = document.getElementById('hzPhone').value.trim();
+      const intent = (document.querySelector('input[name="hzIntent"]:checked') || {}).value || '';
+      const budget = document.getElementById('hzBudget').value || '';
+      const area   = document.getElementById('hzArea').value || '';
+
+      if (!email || !email.includes('@')) {
+        document.getElementById('hzEmail').focus();
+        return;
+      }
+
+      btn.disabled = true;
+      txt.textContent = 'Submitting…';
+
+      const payload = { name, email, phone, intent, budget, area,
+                        _subject: `New PropPulse Lead — ${name || email}` };
+
+      await Promise.allSettled([
+        // Formspree → sends real email to alex@proppulse.online
+        fetch('https://formspree.io/f/mzdqrpjw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload),
+        }),
+        // Local server → saves to leads_log.json
+        fetch('/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }),
+      ]);
+
+      document.getElementById('hzFormContent').style.display = 'none';
+      document.getElementById('hzSuccess').style.display     = 'block';
+    }
 
     /* ── Market knowledge base ──────────────────────────────────────────────── */
     const MARKET = [
@@ -666,6 +1074,8 @@
           return timelineReply(S.name);
         }
         if (S.stage === 'book') {
+          // Capture what they said as the appointment time
+          S.appointmentTime = msg;
           S.stage = 'done';
           return bookingReply(S.name);
         }
@@ -735,15 +1145,18 @@
         return timelineReply(S.name);
       }
 
-      // Booking — email collection
+      // Booking — email collection (user is confirming their chosen time)
       if (S.stage === 'book') {
+        S.appointmentTime = msg;
         S.stage = 'done';
         return bookingReply(S.name);
       }
 
-      // Done — confirm booking, then close on next reply
+      // Done — user just gave their email; show Hormozi form overlay
       if (S.stage === 'done') {
         S.stage = 'closing';
+        const email = extractEmail(msg);
+        showHermoziForm(email, S.name, S.intent);
         return confirmedReply(S.name);
       }
 
@@ -873,9 +1286,11 @@
     /* ── End / reset ────────────────────────────────────────────────────────── */
     function endCall() {
       clearInterval(timerInterval);
+      document.getElementById('hzOverlay').classList.remove('active');
       S.stage = 'intent';
       S.intent = null;
       S.name = null;
+      S.appointmentTime = null;
       S.nameAsked = false;
       fallbackIdx = 0;
       document.getElementById('messages').innerHTML = '';
