@@ -174,6 +174,20 @@
     fadeTargets.forEach(function (el) { fadeObserver.observe(el); });
   }
 
+  /* ── FAQ accordion ──────────────────────────────────────────────────────── */
+  document.querySelectorAll('.faq-question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var answer = btn.nextElementSibling;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) {
+        answer.hidden = true;
+      } else {
+        answer.hidden = false;
+      }
+    });
+  });
+
   /* ── Demo call timer: counts up while section is in view ───────────────── */
   var demoCallTimer = document.getElementById('demo-call-timer');
   if (demoCallTimer) {

@@ -525,10 +525,10 @@ ul {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   align-items: start;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 
 .pricing-card {
@@ -674,6 +674,138 @@ ul {
   line-height: 1.5;
 }
 .guarantee-badge strong { color: var(--text); }
+
+/* ─── PRICING — NEW COMPONENTS ────────────────────────────────────────────── */
+
+.pricing-best-for {
+  font-size: 0.8125rem;
+  color: var(--text-subtle);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.pricing-best-for--accent { color: var(--accent); opacity: 0.85; }
+
+.pricing-card-note {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Brokerage enterprise strip */
+.brokerage-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 28px 36px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.brokerage-strip-left { flex: 1; min-width: 260px; }
+.brokerage-strip-eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.brokerage-strip-title {
+  font-family: var(--font-head);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.brokerage-strip-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.brokerage-strip-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.brokerage-strip-price {
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.brokerage-strip-price span {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* FAQ accordion */
+.pricing-faq {
+  margin-top: 56px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq-list { display: flex; flex-direction: column; }
+.faq-item {
+  border-bottom: 1px solid var(--border-subtle);
+}
+.faq-item:first-child { border-top: 1px solid var(--border-subtle); }
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  font-family: var(--font-head);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition);
+}
+.faq-question:hover { color: var(--accent); }
+.faq-icon {
+  font-size: 1.25rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+  line-height: 1;
+}
+.faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card--featured { transform: none; }
+  .pricing-card--featured.fade-in.visible { transform: none; }
+  .brokerage-strip { flex-direction: column; align-items: flex-start; }
+  .brokerage-strip-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; align-items: center; }
+}
+@media (max-width: 600px) {
+  .brokerage-strip { padding: 24px 20px; }
+  .pricing-faq { margin-top: 40px; }
+}
 
 /* ─── SAMPLE REPORT ───────────────────────────────────────────────────────── */
 .sample-section {
@@ -2224,30 +2356,12 @@ ul {
   line-height: 1.65;
 }
 
-/* ─── PRICING GRID — 4 COLUMNS RESPONSIVE ───────────────────────────────── */
-/* Smaller card padding on 4-col desktop layout */
-.pricing-grid .pricing-card {
-  padding: 28px 20px;
-}
-
-.pricing-grid .price-amount {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-}
-
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
   .pricing-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  .pricing-grid .pricing-card {
-    padding: 36px 28px;
-  }
-  .pricing-grid .price-amount {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-  }
-  .pricing-card--featured {
-    order: -1;
-  }
+  .pricing-card--featured { order: -1; }
 }
 
 /* ─── PAIN + HOW-IT-WORKS RESPONSIVE ─────────────────────────────────────── */
