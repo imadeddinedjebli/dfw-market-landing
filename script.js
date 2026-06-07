@@ -174,6 +174,72 @@
     fadeTargets.forEach(function (el) { fadeObserver.observe(el); });
   }
 
+  /* ── Demo call timer: counts up while section is in view ───────────────── */
+  var demoCallTimer = document.getElementById('demo-call-timer');
+  if (demoCallTimer) {
+    var demoSec = 0;
+    var demoClockInterval = null;
+    var demoClockObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !demoClockInterval) {
+          demoClockInterval = setInterval(function () {
+            demoSec++;
+            var m = Math.floor(demoSec / 60);
+            var s = demoSec % 60;
+            demoCallTimer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+          }, 1000);
+        } else if (!entry.isIntersecting && demoClockInterval) {
+          clearInterval(demoClockInterval);
+          demoClockInterval = null;
+          demoSec = 0;
+          demoCallTimer.textContent = '0:00';
+        }
+      });
+    }, { threshold: 0.4 });
+    var demoSection = demoCallTimer.closest('.demo-section') || demoCallTimer;
+    demoClockObs.observe(demoSection);
+  }
+
+  /* ── Lead timer: counts up seconds, drains conversion % bar ───────────── */
+  var timerEl = document.getElementById('timer-display');
+  var pctEl   = document.getElementById('pct-display');
+  if (timerEl && pctEl) {
+    var timerSec = 0;
+    var timerInterval = null;
+    var timerObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !timerInterval) {
+          timerInterval = setInterval(function () {
+            timerSec++;
+            var m = Math.floor(timerSec / 60);
+            var s = timerSec % 60;
+            timerEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+            var pct = Math.max(0, Math.round(100 - timerSec * 1.5));
+            pctEl.textContent = pct + '%';
+            var fill = timerEl.closest('.lead-ui') &&
+              timerEl.closest('.lead-ui').querySelector('.bar-fill');
+            if (fill) fill.style.width = pct + '%';
+            if (timerSec >= 66) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+              timerSec = 0;
+            }
+          }, 1000);
+        } else if (!entry.isIntersecting && timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerSec = 0;
+          timerEl.textContent = '0:00';
+          pctEl.textContent = '100%';
+          var fill2 = timerEl.closest('.lead-ui') &&
+            timerEl.closest('.lead-ui').querySelector('.bar-fill');
+          if (fill2) fill2.style.width = '100%';
+        }
+      });
+    }, { threshold: 0.5 });
+    timerObserver.observe(timerEl.closest('.pain-card') || timerEl);
+  }
+
   /* ── Contact form: floating labels for select + submit handling ─────────── */
   var contactForm = document.getElementById('contactForm');
   var cfSubmit    = document.getElementById('cfSubmit');
@@ -185,6 +251,24 @@
     cfSelect.addEventListener('change', function () {
       if (this.value) this.classList.add('has-value');
       else this.classList.remove('has-value');
+    });
+  }
+
+  /* ── 3D card tilt effect ─────────────────────────────────────────────────── */
+  if (window.matchMedia('(hover: hover)').matches) {
+    var tiltCards = document.querySelectorAll('.pain-card, .pricing-card, .client-card');
+    tiltCards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var rotX = ((y - rect.height / 2) / rect.height) * 10;
+        var rotY = ((rect.width  / 2 - x) / rect.width)  * 10;
+        card.style.transform = 'perspective(900px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
     });
   }
 

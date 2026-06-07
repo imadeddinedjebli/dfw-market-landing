@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropPulse — Animation Previews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #111111;
+      --bg-dark: #080808;
+      --accent: #00BFFF;
+      --accent-dim: rgba(0,191,255,0.15);
+      --accent-glow: rgba(0,191,255,0.25);
+      --text: #ffffff;
+      --text-muted: #9ca3af;
+      --text-subtle: #6b7280;
+      --border: rgba(0,191,255,0.2);
+      --border-subtle: rgba(255,255,255,0.07);
+      --radius: 14px;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 48px 24px;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .page-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto 64px;
+    }
+
+    /* ── ANIMATION CARD SHELL ── */
+    .anim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .anim-screen {
+      background: #0d1117;
+      border-bottom: 1px solid var(--border-subtle);
+      height: 260px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .anim-label {
+      padding: 18px 22px 16px;
+    }
+    .anim-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .anim-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 1: MISSED CALL                                */
+    /* ─────────────────────────────────────────────────────── */
+    .phone-ui {
+      width: 200px;
+      background: #151515;
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 20px 16px;
+      text-align: center;
+      animation: phone-ring 4s ease-in-out infinite;
+    }
+
+    @keyframes phone-ring {
+      0%, 10%  { transform: rotate(0deg); }
+      12%       { transform: rotate(-8deg); }
+      14%       { transform: rotate(8deg); }
+      16%       { transform: rotate(-8deg); }
+      18%       { transform: rotate(8deg); }
+      20%       { transform: rotate(0deg); }
+      100%      { transform: rotate(0deg); }
+    }
+
+    .phone-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+      border: 2px solid var(--border-subtle);
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .phone-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .phone-type {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .phone-pulse {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-bounce 0.8s ease-in-out infinite;
+    }
+    .pulse-dot:nth-child(2) { animation-delay: 0.15s; }
+    .pulse-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes pulse-bounce {
+      0%, 100% { transform: scaleY(1); opacity: 0.4; }
+      50%       { transform: scaleY(1.8); opacity: 1; }
+    }
+
+    .phone-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn-decline {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      animation: btn-decline-pop 4s ease-in-out infinite;
+    }
+
+    @keyframes btn-decline-pop {
+      0%, 50%   { transform: scale(1); }
+      55%        { transform: scale(1.15); }
+      60%        { transform: scale(1); }
+      100%       { transform: scale(1); }
+    }
+
+    .btn-answer {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+    }
+
+    .missed-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.88);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0;
+      animation: missed-show 4s ease-in-out infinite;
+    }
+
+    @keyframes missed-show {
+      0%, 45%  { opacity: 0; }
+      60%, 90% { opacity: 1; }
+      100%     { opacity: 0; }
+    }
+
+    .missed-tag {
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: var(--red);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .missed-cost {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: -0.02em;
+    }
+
+    .missed-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 2: SPEED TO LEAD                              */
+    /* ─────────────────────────────────────────────────────── */
+    .lead-ui {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .lead-card {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .lead-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .lead-tag-new {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent-dim);
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .lead-timer {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .lead-name {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .lead-source {
+      font-size: 0.6875rem;
+      color: var(--text-subtle);
+    }
+
+    .conversion-bar-wrap {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+
+    .conversion-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .conversion-pct {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 0.75rem;
+    }
+
+    .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--green);
+      width: 100%;
+      animation: bar-drain 5s linear infinite;
+      transform-origin: left;
+    }
+
+    @keyframes bar-drain {
+      0%   { width: 100%; background: var(--green); }
+      70%  { background: #f59e0b; }
+      90%  { width: 5%; background: var(--red); }
+      95%, 100% { width: 5%; background: var(--red); }
+    }
+
+    .lead-timer-val {
+      animation: timer-count 5s linear infinite;
+    }
+
+    @keyframes timer-count {
+      0%   { content: "0:00"; }
+    }
+
+    .conversion-pct-val {
+      animation: pct-drain 5s linear infinite;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 3: WRONG DATA                                 */
+    /* ─────────────────────────────────────────────────────── */
+    .data-ui {
+      width: 100%;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .data-row {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .data-key {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .data-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+
+    .data-val.wrong {
+      color: var(--red);
+      animation: wrong-flash 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    .data-val.wrong::after {
+      content: ' ✕';
+      font-size: 0.65rem;
+    }
+
+    @keyframes wrong-flash {
+      0%, 80%  { opacity: 1; }
+      85%      { opacity: 0.3; }
+      90%      { opacity: 1; }
+      95%      { opacity: 0.3; }
+      100%     { opacity: 1; }
+    }
+
+    .data-val.right {
+      color: var(--accent);
+      animation: right-appear 3s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes right-appear {
+      0%, 79%  { opacity: 0; }
+      85%      { opacity: 1; }
+      100%     { opacity: 1; }
+    }
+
+    .data-source-tag {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .tag-national {
+      background: rgba(239,68,68,0.1);
+      color: var(--red);
+    }
+
+    .tag-dfw {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 4: AI VOICE AGENT — CALL FLOW                 */
+    /* ─────────────────────────────────────────────────────── */
+    .chat-ui {
+      width: 100%;
+      max-width: 270px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .chat-header {
+      background: #1a1a1a;
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #0077aa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .chat-agent-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chat-status {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.6rem;
+      color: var(--green);
+    }
+
+    .chat-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .chat-body {
+      background: #0d1117;
+      border: 1px solid var(--border-subtle);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 170px;
+    }
+
+    .bubble {
+      max-width: 85%;
+      padding: 8px 11px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      line-height: 1.45;
+      opacity: 0;
+    }
+
+    .bubble-agent {
+      background: #1e1e1e;
+      border: 1px solid var(--border-subtle);
+      border-bottom-left-radius: 3px;
+      color: var(--text);
+      align-self: flex-start;
+    }
+
+    .bubble-user {
+      background: var(--accent);
+      color: #000;
+      font-weight: 500;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px;
+    }
+
+    .bubble-confirm {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: var(--green);
+      align-self: flex-start;
+      border-bottom-left-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* staggered appearance */
+    .b1 { animation: bubble-in 8s ease-in-out infinite; animation-delay: 0.3s; }
+    .b2 { animation: bubble-in 8s ease-in-out infinite; animation-delay: 1.5s; }
+    .b3 { animation: bubble-in 8s ease-in-out infinite; animation-delay: 2.8s; }
+    .b4 { animation: bubble-in 8s ease-in-out infinite; animation-delay: 4.2s; }
+    .b5 { animation: bubble-in 8s ease-in-out infinite; animation-delay: 5.5s; }
+
+    @keyframes bubble-in {
+      0%     { opacity: 0; transform: translateY(6px); }
+      8%     { opacity: 1; transform: translateY(0); }
+      88%    { opacity: 1; }
+      95%    { opacity: 0; }
+      100%   { opacity: 0; }
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 8px 11px;
+      background: #1e1e1e;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      border-bottom-left-radius: 3px;
+      width: fit-content;
+      opacity: 0;
+      animation: typing-cycle 8s ease-in-out infinite;
+    }
+
+    .typing-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .typing-dot:nth-child(1) { animation: typing-bounce 0.8s ease-in-out infinite; }
+    .typing-dot:nth-child(2) { animation: typing-bounce 0.8s ease-in-out infinite 0.15s; }
+    .typing-dot:nth-child(3) { animation: typing-bounce 0.8s ease-in-out infinite 0.3s; }
+
+    @keyframes typing-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-3px); }
+    }
+
+    @keyframes typing-cycle {
+      0%     { opacity: 0; }
+      5%     { opacity: 1; }
+      12%    { opacity: 0; }
+      60%    { opacity: 0; }
+      65%    { opacity: 1; }
+      72%    { opacity: 0; }
+      100%   { opacity: 0; }
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 5: QUALIFIES & CONVERTS                       */
+    /* ─────────────────────────────────────────────────────── */
+    .qualify-ui {
+      width: 100%;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .qualify-card {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .qualify-card:nth-child(1) { animation: qualify-appear 6s ease-in-out infinite; animation-delay: 0.2s; }
+    .qualify-card:nth-child(2) { animation: qualify-appear 6s ease-in-out infinite; animation-delay: 1.2s; }
+    .qualify-card:nth-child(3) { animation: qualify-appear 6s ease-in-out infinite; animation-delay: 2.4s; }
+    .qualify-card:nth-child(4) { animation: qualify-appear 6s ease-in-out infinite; animation-delay: 3.6s; }
+
+    @keyframes qualify-appear {
+      0%     { opacity: 0; transform: translateY(8px); }
+      10%    { opacity: 1; transform: translateY(0); }
+      85%    { opacity: 1; }
+      95%    { opacity: 0; }
+      100%   { opacity: 0; }
+    }
+
+    .q-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--text-subtle);
+      margin-bottom: 4px;
+    }
+
+    .q-value {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .q-value.accent { color: var(--accent); }
+    .q-value.green { color: var(--green); }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 6: BOOKS & FOLLOWS UP                         */
+    /* ─────────────────────────────────────────────────────── */
+    .booking-ui {
+      width: 100%;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cal-card {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .cal-header {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cal-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cal-slot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      padding: 7px 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .cal-slot.selected {
+      background: var(--accent-dim);
+      border-color: var(--border);
+      color: var(--accent);
+      animation: slot-select 6s ease-in-out infinite;
+    }
+
+    @keyframes slot-select {
+      0%, 30%  { background: rgba(255,255,255,0.03); border-color: var(--border-subtle); color: var(--text-muted); }
+      40%, 85% { background: var(--accent-dim); border-color: var(--border); color: var(--accent); }
+      95%      { background: rgba(255,255,255,0.03); border-color: var(--border-subtle); color: var(--text-muted); }
+      100%     { background: rgba(255,255,255,0.03); border-color: var(--border-subtle); color: var(--text-muted); }
+    }
+
+    .sms-notification {
+      background: #1a1a1a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: sms-appear 6s ease-in-out infinite;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes sms-appear {
+      0%, 39%  { opacity: 0; transform: translateY(10px); }
+      50%, 85% { opacity: 1; transform: translateY(0); }
+      95%      { opacity: 0; }
+      100%     { opacity: 0; transform: translateY(10px); }
+    }
+
+    .sms-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .sms-body {
+      flex: 1;
+    }
+
+    .sms-from {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .sms-text {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 7: MARKET INTELLIGENCE DASHBOARD              */
+    /* ─────────────────────────────────────────────────────── */
+    .dashboard-ui {
+      width: 100%;
+      max-width: 270px;
+    }
+
+    .dash-header {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dash-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .dash-badge {
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    .dash-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border-subtle);
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+    }
+
+    .dash-stat {
+      background: #0d1117;
+      padding: 10px 12px;
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .dash-stat:nth-child(even) { border-right: none; }
+    .dash-stat:nth-child(3),
+    .dash-stat:nth-child(4) { border-bottom: none; }
+
+    .dash-stat-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-bottom: 2px;
+    }
+
+    .dash-stat-key {
+      font-size: 0.5875rem;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .dash-bars {
+      margin-top: 10px;
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .dash-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dash-bar-label {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      width: 54px;
+      flex-shrink: 0;
+    }
+
+    .dash-bar-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .dash-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--accent);
+      width: 0;
+    }
+
+    .db1 { animation: dash-fill 4s ease-out infinite; animation-delay: 0.2s; width: 76%; }
+    .db2 { animation: dash-fill 4s ease-out infinite; animation-delay: 0.5s; width: 62%; }
+    .db3 { animation: dash-fill 4s ease-out infinite; animation-delay: 0.8s; width: 88%; }
+
+    @keyframes dash-fill {
+      0%   { width: 0; }
+      60%  { width: inherit; }
+      90%  { width: inherit; opacity: 1; }
+      95%  { opacity: 0; }
+      96%  { width: 0; opacity: 0; }
+      100% { width: 0; opacity: 0; }
+    }
+
+    .dash-bar-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      color: var(--accent);
+      font-weight: 700;
+      width: 34px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 8: HOW IT WORKS — SETUP                       */
+    /* ─────────────────────────────────────────────────────── */
+    .setup-ui {
+      width: 100%;
+      max-width: 256px;
+    }
+
+    .setup-card {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .setup-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .setup-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #00d4ff);
+      animation: setup-progress 5s ease-in-out infinite;
+      width: 0;
+    }
+
+    @keyframes setup-progress {
+      0%   { width: 0%; }
+      80%  { width: 100%; }
+      90%  { width: 100%; }
+      95%  { width: 0%; opacity: 0; }
+      96%  { width: 0%; opacity: 0; }
+      100% { width: 0%; opacity: 1; }
+    }
+
+    .setup-list {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setup-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.35;
+    }
+
+    .setup-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .setup-item:nth-child(1) { animation: setup-check 5s ease-in-out infinite; animation-delay: 0.5s; }
+    .setup-item:nth-child(2) { animation: setup-check 5s ease-in-out infinite; animation-delay: 1.4s; }
+    .setup-item:nth-child(3) { animation: setup-check 5s ease-in-out infinite; animation-delay: 2.3s; }
+    .setup-item:nth-child(4) { animation: setup-check 5s ease-in-out infinite; animation-delay: 3.2s; }
+
+    @keyframes setup-check {
+      0%, 5%   { opacity: 0.35; }
+      12%, 85% { opacity: 1; color: var(--text); }
+      90%      { opacity: 0.35; }
+      100%     { opacity: 0.35; }
+    }
+
+    .setup-item.checked .setup-check {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .setup-eta {
+      padding: 8px 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .setup-eta-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 0.75rem;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 9: HOW IT WORKS — WORKS WHILE YOU SLEEP       */
+    /* ─────────────────────────────────────────────────────── */
+    .log-ui {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .log-header {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .log-title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .log-night {
+      font-size: 0.625rem;
+      color: var(--text-subtle);
+    }
+
+    .log-body {
+      background: #0d1117;
+      border: 1px solid var(--border-subtle);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+    }
+
+    .log-entry {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.6875rem;
+      opacity: 0;
+      transform: translateX(-6px);
+    }
+
+    .log-entry:last-child { border-bottom: none; }
+
+    .log-entry:nth-child(1) { animation: log-slide 7s ease-in-out infinite; animation-delay: 0.3s; }
+    .log-entry:nth-child(2) { animation: log-slide 7s ease-in-out infinite; animation-delay: 1.3s; }
+    .log-entry:nth-child(3) { animation: log-slide 7s ease-in-out infinite; animation-delay: 2.4s; }
+    .log-entry:nth-child(4) { animation: log-slide 7s ease-in-out infinite; animation-delay: 3.5s; }
+    .log-entry:nth-child(5) { animation: log-slide 7s ease-in-out infinite; animation-delay: 4.6s; }
+
+    @keyframes log-slide {
+      0%     { opacity: 0; transform: translateX(-6px); }
+      8%     { opacity: 1; transform: translateX(0); }
+      88%    { opacity: 1; }
+      95%    { opacity: 0; }
+      100%   { opacity: 0; }
+    }
+
+    .log-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .log-dot.booked { background: var(--green); }
+    .log-dot.qualified { background: var(--accent); }
+
+    .log-time {
+      color: var(--text-subtle);
+      width: 32px;
+      flex-shrink: 0;
+    }
+
+    .log-name { color: var(--text); font-weight: 500; flex: 1; }
+
+    .log-status {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .status-booked {
+      background: rgba(34,197,94,0.12);
+      color: var(--green);
+    }
+
+    .status-qualified {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* ANIMATION 10: HOW IT WORKS — INTELLIGENCE DELIVERED     */
+    /* ─────────────────────────────────────────────────────── */
+    .inbox-ui {
+      width: 100%;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .inbox-email {
+      background: #151515;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: inbox-drop 5s ease-in-out infinite;
+    }
+
+    @keyframes inbox-drop {
+      0%, 5%   { opacity: 0; transform: translateY(-8px); }
+      18%, 85% { opacity: 1; transform: translateY(0); }
+      95%      { opacity: 0; }
+      100%     { opacity: 0; }
+    }
+
+    .inbox-from {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .inbox-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent) 0%, #0077aa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
+    }
+
+    .inbox-sender {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .inbox-date {
+      margin-left: auto;
+      font-size: 0.6rem;
+      color: var(--text-subtle);
+    }
+
+    .inbox-subject {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .inbox-preview {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .report-thumb {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: inbox-drop 5s ease-in-out infinite;
+      animation-delay: 0.8s;
+    }
+
+    .report-thumb-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .report-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .report-name {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1px;
+    }
+
+    .report-size {
+      font-size: 0.6rem;
+      color: var(--text-subtle);
+    }
+
+    .report-download {
+      font-size: 0.6875rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* SHARED GRID SCROLL                                      */
+    /* ─────────────────────────────────────────────────────── */
+    .max-w { max-width: 1100px; margin: 0 auto; }
+
+    /* Counter animation JS targets */
+    .count-up { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <h1>PropPulse — Animation Previews</h1>
+  <p class="page-sub">Review all product animations before they go live on the site. Open <code>index.html</code> in the browser alongside this file.</p>
+
+  <div class="max-w">
+
+    <!-- PAIN POINTS -->
+    <div class="section-label">Pain Points Section — 3 Animations</div>
+    <div class="grid">
+
+      <!-- 1. Missed Calls -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="phone-ui">
+            <div class="phone-avatar">👤</div>
+            <div class="phone-name">Unknown Caller</div>
+            <div class="phone-type">Incoming · Potential Buyer</div>
+            <div class="phone-pulse">
+              <div class="pulse-dot"></div>
+              <div class="pulse-dot"></div>
+              <div class="pulse-dot"></div>
+            </div>
+            <div class="phone-actions">
+              <div class="btn-decline">✕</div>
+              <div class="btn-answer">✓</div>
+            </div>
+          </div>
+          <div class="missed-overlay">
+            <div class="missed-tag">Missed Call</div>
+            <div class="missed-cost">$96,000<span style="font-size:1rem">/yr</span></div>
+            <div class="missed-sub">Your competitor just answered.</div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Missed Calls → $96K Lost/Year</div>
+          <div class="anim-desc">Pain point card — phone rings, goes unanswered, cost appears</div>
+        </div>
+      </div>
+
+      <!-- 2. Slow Follow-Up -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="lead-ui">
+            <div class="lead-card">
+              <div class="lead-card-top">
+                <div class="lead-tag-new">New Lead</div>
+                <div class="lead-timer">⏱ <span id="timer-display">0:00</span></div>
+              </div>
+              <div class="lead-name">Sarah K.</div>
+              <div class="lead-source">Zillow inquiry · Wants to invest in DFW</div>
+            </div>
+            <div class="conversion-bar-wrap">
+              <div class="conversion-label">
+                <span>Conversion Chance</span>
+                <span class="conversion-pct" id="pct-display">100%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" id="conv-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Slow Follow-Up → 100x Less Likely to Convert</div>
+          <div class="anim-desc">Lead timer runs, conversion bar drains red in real-time</div>
+        </div>
+      </div>
+
+      <!-- 3. Wrong Data -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="data-ui">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:0.65rem;color:var(--text-muted);font-weight:600;">Cap Rate — Mesquite, TX</span>
+            </div>
+            <div class="data-row">
+              <div class="data-key">National Average</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="data-source-tag tag-national">PropStream</span>
+                <div class="data-val wrong">4.1%</div>
+              </div>
+            </div>
+            <div class="data-row">
+              <div class="data-key">DFW Actual</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="data-source-tag tag-dfw">PropPulse</span>
+                <div class="data-val right" style="color:var(--accent)">6.4% ✓</div>
+              </div>
+            </div>
+            <div class="data-row">
+              <div class="data-key">Deal Underwritten At</div>
+              <div class="data-val wrong">4.1%</div>
+            </div>
+            <div style="margin-top:4px;padding:8px 12px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:0.6875rem;color:var(--red);">
+              ✕ Deal penciled wrong. Capital deployed on bad numbers.
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Generic Data → Wrong Deals</div>
+          <div class="anim-desc">National vs DFW cap rates side-by-side, bad number flashes</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AI VOICE AGENT -->
+    <div class="section-label">AI Voice Agent Section — 3 Animations</div>
+    <div class="grid">
+
+      <!-- 4. Answers Every Call -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="chat-ui">
+            <div class="chat-header">
+              <div class="chat-avatar">PP</div>
+              <div>
+                <div class="chat-agent-name">PropPulse Agent</div>
+              </div>
+              <div class="chat-status"><div class="chat-dot"></div> Live</div>
+            </div>
+            <div class="chat-body">
+              <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+              <div class="bubble bubble-agent b1">Hey! You've reached PropPulse. Are you buying, selling, or investing?</div>
+              <div class="bubble bubble-user b2">Looking to invest in DFW rentals</div>
+              <div class="bubble bubble-agent b3">Cap rates in Mesquite are hitting 6.4% right now. Want the full submarket breakdown?</div>
+              <div class="bubble bubble-user b4">Yes — and can I book a call?</div>
+              <div class="bubble bubble-confirm b5">✓ Booked Tuesday 10am · SMS sent</div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Answers Every Call — 24/7</div>
+          <div class="anim-desc">Chat bubbles appear sequentially, agent qualifies and books</div>
+        </div>
+      </div>
+
+      <!-- 5. Qualifies & Converts -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="qualify-ui">
+            <div style="font-size:0.65rem;color:var(--text-subtle);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;">Lead Qualification</div>
+            <div class="qualify-card">
+              <div class="q-label">Caller Type</div>
+              <div class="q-value accent">Investor — Identified in 28s</div>
+            </div>
+            <div class="qualify-card">
+              <div class="q-label">Target Market</div>
+              <div class="q-value">DFW Rentals · $300K–$500K</div>
+            </div>
+            <div class="qualify-card">
+              <div class="q-label">Timeline</div>
+              <div class="q-value">Ready to deploy within 60 days</div>
+            </div>
+            <div class="qualify-card">
+              <div class="q-label">Status</div>
+              <div class="q-value green">✓ Qualified · Booked for Strategy Call</div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Qualifies & Converts Every Lead</div>
+          <div class="anim-desc">Qualification cards fill in one by one, lead status goes green</div>
+        </div>
+      </div>
+
+      <!-- 6. Books & Follows Up -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="booking-ui">
+            <div class="cal-card">
+              <div class="cal-header">📅 Available Slots</div>
+              <div class="cal-slots">
+                <div class="cal-slot selected">Tue, Jun 10 · 10:00 AM</div>
+                <div class="cal-slot">Wed, Jun 11 · 2:00 PM</div>
+                <div class="cal-slot">Thu, Jun 12 · 4:00 PM</div>
+              </div>
+            </div>
+            <div class="sms-notification">
+              <div class="sms-icon">💬</div>
+              <div class="sms-body">
+                <div class="sms-from">PropPulse AI · SMS</div>
+                <div class="sms-text">Your consultation is confirmed for Tue Jun 10 at 10am. Talk soon!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Books & Follows Up Automatically</div>
+          <div class="anim-desc">Slot highlights, SMS notification slides in confirmed</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MARKET INTELLIGENCE -->
+    <div class="section-label">Market Intelligence — 1 Animation</div>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 480px));">
+
+      <!-- 7. Market Intelligence Dashboard -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="dashboard-ui">
+            <div class="dash-header">
+              <div class="dash-title">DFW Market Report · Q2 2026</div>
+              <div class="dash-badge">Live Data</div>
+            </div>
+            <div class="dash-stats">
+              <div class="dash-stat">
+                <div class="dash-stat-val">$436K</div>
+                <div class="dash-stat-key">Median List Price</div>
+              </div>
+              <div class="dash-stat">
+                <div class="dash-stat-val">5.76%</div>
+                <div class="dash-stat-key">Best Cap Rate</div>
+              </div>
+              <div class="dash-stat">
+                <div class="dash-stat-val">26K+</div>
+                <div class="dash-stat-key">Active Listings</div>
+              </div>
+              <div class="dash-stat">
+                <div class="dash-stat-val">4.0%</div>
+                <div class="dash-stat-key">Unemployment</div>
+              </div>
+            </div>
+            <div class="dash-bars">
+              <div class="dash-bar-row">
+                <div class="dash-bar-label">Mesquite</div>
+                <div class="dash-bar-track"><div class="dash-bar-fill db1"></div></div>
+                <div class="dash-bar-val">6.4%</div>
+              </div>
+              <div class="dash-bar-row">
+                <div class="dash-bar-label">Garland</div>
+                <div class="dash-bar-track"><div class="dash-bar-fill db2"></div></div>
+                <div class="dash-bar-val">6.1%</div>
+              </div>
+              <div class="dash-bar-row">
+                <div class="dash-bar-label">Irving</div>
+                <div class="dash-bar-track"><div class="dash-bar-fill db3"></div></div>
+                <div class="dash-bar-val">5.9%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">DFW Market Intelligence Dashboard</div>
+          <div class="anim-desc">Stats populate, cap rate bars fill in by submarket</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="section-label">How It Works Section — 3 Animations</div>
+    <div class="grid">
+
+      <!-- 8. Setup -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="setup-ui">
+            <div class="setup-card">
+              <div class="setup-bar"><div class="setup-bar-fill"></div></div>
+              <div class="setup-list">
+                <div class="setup-item checked">
+                  <div class="setup-check">✓</div>
+                  <span>AI Voice Agent configured</span>
+                </div>
+                <div class="setup-item checked">
+                  <div class="setup-check">✓</div>
+                  <span>DFW phone number assigned</span>
+                </div>
+                <div class="setup-item checked">
+                  <div class="setup-check">✓</div>
+                  <span>Cal.com calendar connected</span>
+                </div>
+                <div class="setup-item checked">
+                  <div class="setup-check">✓</div>
+                  <span>SMS follow-up enabled</span>
+                </div>
+              </div>
+              <div class="setup-eta">
+                <span>Setup complete in</span>
+                <span class="setup-eta-val">48 hrs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Step 01 — We Set You Up</div>
+          <div class="anim-desc">Progress bar runs, checklist items tick off one by one</div>
+        </div>
+      </div>
+
+      <!-- 9. Works While You Sleep -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="log-ui">
+            <div class="log-header">
+              <div class="log-title">🌙 Tonight's Activity Log</div>
+              <div class="log-night">Auto-updating</div>
+            </div>
+            <div class="log-body">
+              <div class="log-entry">
+                <div class="log-dot booked"></div>
+                <div class="log-time">11:42p</div>
+                <div class="log-name">Marcus T.</div>
+                <div class="log-status status-booked">Booked</div>
+              </div>
+              <div class="log-entry">
+                <div class="log-dot qualified"></div>
+                <div class="log-time">1:17a</div>
+                <div class="log-name">Priya K.</div>
+                <div class="log-status status-qualified">Qualified</div>
+              </div>
+              <div class="log-entry">
+                <div class="log-dot booked"></div>
+                <div class="log-time">2:34a</div>
+                <div class="log-name">James R.</div>
+                <div class="log-status status-booked">Booked</div>
+              </div>
+              <div class="log-entry">
+                <div class="log-dot booked"></div>
+                <div class="log-time">3:51a</div>
+                <div class="log-name">Chen W.</div>
+                <div class="log-status status-booked">Booked</div>
+              </div>
+              <div class="log-entry">
+                <div class="log-dot qualified"></div>
+                <div class="log-time">5:08a</div>
+                <div class="log-name">Sofia M.</div>
+                <div class="log-status status-qualified">Qualified</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Step 02 — It Works While You Sleep</div>
+          <div class="anim-desc">Overnight call log entries slide in, leads booked all night</div>
+        </div>
+      </div>
+
+      <!-- 10. Intelligence Delivered -->
+      <div class="anim-card">
+        <div class="anim-screen">
+          <div class="inbox-ui">
+            <div class="inbox-email">
+              <div class="inbox-from">
+                <div class="inbox-avatar">PP</div>
+                <div class="inbox-sender">PropPulse Intelligence</div>
+                <div class="inbox-date">Mon 7:00am</div>
+              </div>
+              <div class="inbox-subject">Your Weekly Lead Report is Ready</div>
+              <div class="inbox-preview">5 leads qualified · 4 booked · 3 confirmed. Your DFW June market report is attached.</div>
+            </div>
+            <div class="report-thumb">
+              <div class="report-thumb-left">
+                <div class="report-icon">📊</div>
+                <div>
+                  <div class="report-name">DFW-Report-June-2026.pdf</div>
+                  <div class="report-size">2.4 MB · 14 sections</div>
+                </div>
+              </div>
+              <div class="report-download">↓ Open</div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-label">
+          <div class="anim-title">Step 03 — You Get the Intelligence</div>
+          <div class="anim-desc">Monday morning report email drops in, PDF report appears</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* ── Live timer for Slow Follow-Up card ── */
+    (function() {
+      var elapsed = 0;
+      var maxSecs = 300;
+      var timerEl = document.getElementById('timer-display');
+      var pctEl   = document.getElementById('pct-display');
+
+      setInterval(function() {
+        elapsed = (elapsed + 1) % (maxSecs + 5);
+        if (elapsed > maxSecs) { elapsed = 0; return; }
+
+        var mins = Math.floor(elapsed / 60);
+        var secs = elapsed % 60;
+        if (timerEl) timerEl.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+        var pct = Math.max(5, Math.round(100 - (elapsed / maxSecs) * 95));
+        if (pctEl) {
+          pctEl.textContent = pct + '%';
+          pctEl.style.color = pct > 60 ? '#22c55e' : pct > 25 ? '#f59e0b' : '#ef4444';
+        }
+      }, 1000);
+    })();
+
+    /* ── Setup checklist: re-trigger animation each cycle ── */
+    /* The CSS animations handle all timing automatically. */
+  </script>
+
+</body>
+</html>

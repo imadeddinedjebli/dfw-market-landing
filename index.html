@@ -26,7 +26,7 @@
         <li><a href="#sample">Sample</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#pricing" class="btn btn-primary nav-cta">Get Started</a>
+      <a href="#contact" class="btn btn-primary nav-cta">Book a Call</a>
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -38,22 +38,22 @@
     <div class="hero-bg-grid" aria-hidden="true"></div>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="container hero-content">
-      <div class="hero-eyebrow">DFW Market Intelligence</div>
+      <div class="hero-eyebrow">DFW Real Estate AI Stack</div>
       <h1 class="hero-headline">
-        Real Estate Data<br />
-        <span class="accent">That Actually Moves Deals.</span>
+        Every Missed Call Is a Deal<br />
+        <span class="accent">Your Competitor Just Closed.</span>
       </h1>
       <p class="hero-sub">
-        City-level data. Neighborhood breakdowns. Financial models.<br class="desktop-br" />
-        Delivered in 24 hours — in one report that replaces PropStream, HouseCanary, and manual comps.
+        DFW agents using PropPulse answer every call, qualify every lead, and close with data their competitors don't have.<br class="desktop-br" />
+        Setup takes 48 hours. The ROI starts immediately.
       </p>
       <div class="hero-ctas">
-        <a href="#sample" class="btn btn-primary btn-lg">Get Free Sample</a>
-        <a href="#pricing" class="btn btn-ghost btn-lg">Order a Report</a>
+        <a href="#contact" class="btn btn-primary btn-lg">Book Your Free Strategy Call &rarr;</a>
+        <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
       </div>
       <p class="hero-guarantee">
         <span class="check-icon">✓</span>
-        Satisfaction guarantee — rewrite free or full refund
+        Satisfaction guarantee: rewrite free or full refund
       </p>
     </div>
   </section>
@@ -84,12 +84,124 @@
   </section>
 
   <!-- ─── WHAT WE DO ────────────────────────────────────────────────────── -->
+  <!-- PAIN POINTS -->
+  <section class="section pain-section" id="pain-points">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">The Cost of Doing Nothing</div>
+        <h2 class="section-title">You're Losing Money<br />Every Day Without This.</h2>
+      </div>
+      <div class="pain-grid">
+
+        <div class="pain-card fade-card">
+          <div class="pain-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 1.13 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <h3 class="pain-title">Missed Calls</h3>
+          <div class="pain-cost accent">$96,000/year</div>
+          <div class="card-anim" aria-hidden="true">
+            <div class="phone-ui">
+              <div class="phone-avatar">👤</div>
+              <div class="phone-name">Unknown Caller</div>
+              <div class="phone-type">Incoming · Potential Buyer</div>
+              <div class="phone-pulse">
+                <div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div>
+              </div>
+              <div class="phone-actions">
+                <div class="btn-decline">✕</div>
+                <div class="btn-answer">✓</div>
+              </div>
+            </div>
+            <div class="missed-overlay">
+              <div class="missed-tag">Missed Call</div>
+              <div class="missed-cost">$96,000<span style="font-size:.9rem">/yr</span></div>
+              <div class="missed-sub">Your competitor just answered.</div>
+            </div>
+          </div>
+          <p class="pain-desc">Every unanswered call is a commission your competitor just cashed.</p>
+          <div class="pain-fix">
+            <span class="pain-fix-label">Fixed by:</span> AI Voice Agent answers 24/7
+          </div>
+        </div>
+
+        <div class="pain-card fade-card">
+          <div class="pain-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="pain-title">Slow Follow-Up</h3>
+          <div class="pain-cost accent">100x Lower Conversion</div>
+          <div class="card-anim" aria-hidden="true">
+            <div class="lead-ui">
+              <div class="lead-card">
+                <div class="lead-card-top">
+                  <div class="lead-tag-new">New Lead</div>
+                  <div class="lead-timer-lbl">⏱ <span id="timer-display">0:00</span></div>
+                </div>
+                <div class="lead-name">Sarah K.</div>
+                <div class="lead-source">Zillow inquiry · DFW investor</div>
+              </div>
+              <div class="conversion-bar-wrap">
+                <div class="conversion-label">
+                  <span>Conversion Chance</span>
+                  <span class="conversion-pct" id="pct-display">100%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill"></div></div>
+              </div>
+            </div>
+          </div>
+          <p class="pain-desc">Call back in an hour. Lose the deal. That's not opinion — that's data.</p>
+          <div class="pain-fix">
+            <span class="pain-fix-label">Fixed by:</span> Speed-to-lead AI calls in under 5 min
+          </div>
+        </div>
+
+        <div class="pain-card fade-card">
+          <div class="pain-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3 class="pain-title">Generic Market Data</h3>
+          <div class="pain-cost accent">Wrong Numbers, Wrong Deals</div>
+          <div class="card-anim" aria-hidden="true">
+            <div class="data-ui">
+              <div style="font-size:.6rem;color:var(--text-muted);font-weight:600;margin-bottom:4px;">Cap Rate — Mesquite, TX</div>
+              <div class="data-row">
+                <div class="data-key">National avg</div>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <span class="data-source-tag tag-national">PropStream</span>
+                  <div class="data-val wrong">4.1%</div>
+                </div>
+              </div>
+              <div class="data-row">
+                <div class="data-key">DFW actual</div>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <span class="data-source-tag tag-dfw">PropPulse</span>
+                  <div class="data-val right">6.4% ✓</div>
+                </div>
+              </div>
+              <div class="data-row">
+                <div class="data-key">Underwritten at</div>
+                <div class="data-val wrong">4.1%</div>
+              </div>
+              <div class="data-error-msg">✕ Capital deployed on the wrong number.</div>
+            </div>
+          </div>
+          <p class="pain-desc">National data in a local market isn't intel. It's liability.</p>
+          <div class="pain-fix">
+            <span class="pain-fix-label">Fixed by:</span> DFW-specific intelligence reports
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE BUILD -->
   <section class="section services-section" id="services">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">What We Do</div>
-        <h2 class="section-title">Intelligence Built for Investors,<br />Not Tourists.</h2>
-        <p class="section-sub">Every report is purpose-built for decision-making — not decoration. Here's what we deliver.</p>
+        <div class="section-eyebrow">What We Build</div>
+        <h2 class="section-title">Intelligence + Automation,<br />Built for DFW Operators.</h2>
+        <p class="section-sub">Every product is purpose-built for decision-making and deal-closing. Here's what's in the stack.</p>
       </div>
       <div class="services-grid">
         <div class="service-card">
@@ -97,35 +209,35 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
           </div>
           <h3 class="service-title">City Reports</h3>
-          <p class="service-desc">Top-down market overview covering population trends, employment growth, cap rates, migration patterns, and macroeconomic drivers across the full metro.</p>
+          <p class="service-desc">Know the market before anyone else moves.</p>
         </div>
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           <h3 class="service-title">Neighborhood Deep-Dives</h3>
-          <p class="service-desc">Block-level rent trends, vacancy rates, crime indices, walkability scores, and school ratings. Know exactly which streets pencil before you commit.</p>
+          <p class="service-desc">The streets that pencil — before you commit a dollar.</p>
         </div>
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
           <h3 class="service-title">Financial Models</h3>
-          <p class="service-desc">IRR, cash-on-cash return, NOI projections, and deal underwriting templates. Institutional-grade spreadsheets calibrated to actual DFW market data.</p>
+          <p class="service-desc">Deal math, done. IRR and NOI ready to deploy capital on.</p>
         </div>
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
           </div>
           <h3 class="service-title">Intel — Monthly Retainer</h3>
-          <p class="service-desc">Recurring market intelligence with monthly updated reports, trend tracking across key indicators, and proactive email alerts when metrics shift materially.</p>
+          <p class="service-desc">Fresh DFW intel every month. No guessing. No surprises.</p>
         </div>
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
           </div>
           <h3 class="service-title">White-Label Research</h3>
-          <p class="service-desc">Your brand, our data engine. Deliver institutional-quality research to your clients under your own logo — scalable across unlimited cities and property types.</p>
+          <p class="service-desc">Your brand. Our engine. Unlimited markets.</p>
         </div>
         <div class="service-card service-card--new">
           <div class="service-new-badge">New</div>
@@ -133,7 +245,7 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 1.13 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <h3 class="service-title">AI Voice Agent</h3>
-          <p class="service-desc">A 24/7 AI assistant that answers your inbound calls, qualifies buyers, sellers, and investors, answers live DFW market questions, books consultations on your calendar, and sends SMS follow-ups — automatically.</p>
+          <p class="service-desc">Answers every call. Books every lead. Sleeps never.</p>
         </div>
       </div>
     </div>
@@ -146,7 +258,7 @@
       <div class="section-header">
         <div class="section-eyebrow">AI Voice Agent</div>
         <h2 class="section-title">Your Agent,<br /><span class="accent">Available on Every Call.</span></h2>
-        <p class="section-sub">PropPulse now powers an AI voice assistant that handles inbound calls for real estate agents 24/7. It qualifies leads, answers DFW market questions using live PropPulse data, books appointments on your calendar, and sends SMS follow-ups — before the call ends.</p>
+        <p class="section-sub">Goes live in 48 hours. Answers every call under your name, qualifies every lead in 30 seconds, books to your calendar, and sends SMS follow-ups — automatically. You close deals. It handles the rest.</p>
       </div>
 
       <div class="agent-features-grid">
@@ -156,7 +268,25 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 1.13 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <h3 class="agent-feature-title">Answers Every Call</h3>
-          <p class="agent-feature-desc">Picks up inbound calls 24/7 under your name and brokerage. Identifies whether each caller is a buyer, seller, or investor within the first 30 seconds — no voicemail, no missed opportunity.</p>
+          <div class="card-anim" aria-hidden="true">
+            <div class="chat-ui">
+              <div class="chat-header">
+                <div class="chat-hdr-avatar">PP</div>
+                <div class="chat-agent-name">PropPulse Agent</div>
+                <div class="chat-live-dot"></div>
+                <div class="chat-live-txt">Live</div>
+              </div>
+              <div class="chat-body">
+                <div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+                <div class="bubble bubble-agent b1">Hey! You've reached PropPulse. Buying, selling, or investing?</div>
+                <div class="bubble bubble-user b2">Looking to invest in DFW rentals</div>
+                <div class="bubble bubble-agent b3">Cap rates in Mesquite are at 6.4%. Want the full breakdown?</div>
+                <div class="bubble bubble-user b4">Yes — and can I book a call?</div>
+                <div class="bubble bubble-confirm b5">&#10003; Booked Tue 10am &middot; SMS sent</div>
+              </div>
+            </div>
+          </div>
+          <p class="agent-feature-desc">24/7. Under your name. Buyer, seller, or investor — identified in 30 seconds.</p>
         </div>
         <div class="agent-feature-card fade-card">
           <div class="agent-feature-num">02</div>
@@ -164,7 +294,28 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           </div>
           <h3 class="agent-feature-title">Qualifies &amp; Converts</h3>
-          <p class="agent-feature-desc">Asks smart qualification questions one at a time. Answers cap rate, rent, and neighborhood questions on the spot using live PropPulse data — and converts market curiosity into booked consultations.</p>
+          <div class="card-anim" aria-hidden="true">
+            <div class="qualify-ui">
+              <div class="qualify-section-lbl">Lead Qualification</div>
+              <div class="qualify-card">
+                <div class="q-label">Caller Type</div>
+                <div class="q-value q-accent">Investor &mdash; Identified in 28s</div>
+              </div>
+              <div class="qualify-card">
+                <div class="q-label">Target Market</div>
+                <div class="q-value">DFW Rentals &middot; $300K&ndash;$500K</div>
+              </div>
+              <div class="qualify-card">
+                <div class="q-label">Timeline</div>
+                <div class="q-value">Ready to deploy within 60 days</div>
+              </div>
+              <div class="qualify-card">
+                <div class="q-label">Status</div>
+                <div class="q-value q-green">&#10003; Qualified &middot; Booked</div>
+              </div>
+            </div>
+          </div>
+          <p class="agent-feature-desc">Doesn't just answer. Qualifies. Converts. Books.</p>
         </div>
         <div class="agent-feature-card fade-card">
           <div class="agent-feature-num">03</div>
@@ -172,18 +323,130 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
           </div>
           <h3 class="agent-feature-title">Books &amp; Follows Up</h3>
-          <p class="agent-feature-desc">Offers three specific time slots, books directly on your Cal.com calendar, and sends a personalized SMS to every qualified lead — all before saying goodbye. You wake up to booked appointments.</p>
+          <div class="card-anim" aria-hidden="true">
+            <div class="booking-ui">
+              <div class="cal-card">
+                <div class="cal-header">&#128197; Available Slots</div>
+                <div class="cal-slots">
+                  <div class="cal-slot selected">Tue Jun 10 &middot; 10:00 AM</div>
+                  <div class="cal-slot">Wed Jun 11 &middot; 2:00 PM</div>
+                  <div class="cal-slot">Thu Jun 12 &middot; 4:00 PM</div>
+                </div>
+              </div>
+              <div class="sms-notification">
+                <div class="sms-icon-box">&#128172;</div>
+                <div class="sms-body">
+                  <div class="sms-from">PropPulse AI &middot; SMS</div>
+                  <div class="sms-text">Confirmed: Tue Jun 10 at 10am. Talk soon!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="agent-feature-desc">You wake up to booked appointments. That's the entire job.</p>
         </div>
       </div>
 
       <div class="agent-cta-row fade-card">
-        <p class="agent-cta-label">Included in <strong>PropPulse Pro</strong> — market intelligence + AI agent, bundled.</p>
-        <a href="#pricing" class="btn btn-primary btn-lg">See Pricing &amp; Get Started</a>
+        <p class="agent-cta-label">Included in <strong>PropPulse Pro</strong> — stop losing deals to your voicemail.</p>
+        <a href="#pricing" class="btn btn-primary btn-lg">Start Closing Every Lead &rarr;</a>
       </div>
     </div>
   </section>
 
-  <!-- ─── WHY PROPPULSE ─────────────────────────────────────────────────── -->
+  <!-- HOW IT WORKS -->
+  <section class="section how-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title">Live in 48 Hours.<br /><span class="accent">Running Forever.</span></h2>
+        <p class="section-sub">No tech skills needed. We handle the entire setup — you just take the calls and close the deals.</p>
+      </div>
+      <div class="steps-grid">
+
+        <div class="step-card fade-card">
+          <div class="step-num">01</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="step-title">We Set You Up</h3>
+          <div class="card-anim" aria-hidden="true">
+            <div class="setup-ui">
+              <div class="setup-card">
+                <div class="setup-progress-bar"><div class="setup-bar-fill"></div></div>
+                <div class="setup-list">
+                  <div class="setup-item s1"><div class="setup-check-icon">&#10003;</div>AI Voice Agent configured</div>
+                  <div class="setup-item s2"><div class="setup-check-icon">&#10003;</div>DFW phone number assigned</div>
+                  <div class="setup-item s3"><div class="setup-check-icon">&#10003;</div>Cal.com calendar connected</div>
+                  <div class="setup-item s4"><div class="setup-check-icon">&#10003;</div>SMS follow-up enabled</div>
+                </div>
+                <div class="setup-eta"><span>Go-live</span><span class="setup-eta-val">48 hours</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="step-desc">48 hours. Zero tech from you. We configure the agent, number, calendar, and SMS — then hand you the keys.</p>
+        </div>
+
+        <div class="step-card fade-card">
+          <div class="step-num">02</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 1.13 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <h3 class="step-title">It Works While You Sleep</h3>
+          <div class="card-anim" aria-hidden="true">
+            <div class="log-ui">
+              <div class="log-header">
+                <span class="log-title-txt">Overnight Activity Log</span>
+                <span class="log-night-lbl">2:14 AM</span>
+              </div>
+              <div class="log-body">
+                <div class="log-entry"><div class="log-dot booked"></div><span class="log-time">2:14</span><span class="log-name">David M.</span><div class="log-status status-booked">Booked</div></div>
+                <div class="log-entry"><div class="log-dot qualified"></div><span class="log-time">1:52</span><span class="log-name">Lisa T.</span><div class="log-status status-qualified">Qualified</div></div>
+                <div class="log-entry"><div class="log-dot booked"></div><span class="log-time">0:37</span><span class="log-name">Marcus R.</span><div class="log-status status-booked">Booked</div></div>
+                <div class="log-entry"><div class="log-dot booked"></div><span class="log-time">11:58</span><span class="log-name">Amy C.</span><div class="log-status status-booked">Booked</div></div>
+                <div class="log-entry"><div class="log-dot qualified"></div><span class="log-time">11:22</span><span class="log-name">Tom S.</span><div class="log-status status-qualified">Qualified</div></div>
+              </div>
+            </div>
+          </div>
+          <p class="step-desc">Calls answered. Leads qualified. Calendar booked. You're asleep — the agent isn't.</p>
+        </div>
+
+        <div class="step-card fade-card">
+          <div class="step-num">03</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3 class="step-title">You Get the Intelligence</h3>
+          <div class="card-anim" aria-hidden="true">
+            <div class="inbox-ui">
+              <div class="inbox-email">
+                <div class="inbox-from-row">
+                  <div class="inbox-avatar-sm">PP</div>
+                  <span class="inbox-sender-name">PropPulse Weekly Log</span>
+                  <span class="inbox-date-lbl">Mon</span>
+                </div>
+                <div class="inbox-subject">4 booked leads this week &middot; DFW</div>
+                <div class="inbox-preview-txt">David M. &middot; Lisa T. &middot; Amy C. &middot; Tom S. confirmed.</div>
+              </div>
+              <div class="report-thumb">
+                <div class="report-thumb-left">
+                  <div class="report-icon-box">&#128196;</div>
+                  <div>
+                    <div class="report-file-name">June DFW Report</div>
+                    <div class="report-file-size">PDF &middot; 2.4 MB</div>
+                  </div>
+                </div>
+                <div class="report-dl-btn">Open &darr;</div>
+              </div>
+            </div>
+          </div>
+          <p class="step-desc">Monday morning: your report is waiting. Leads logged. Market intelligence fresh. Nobody else in the room has it.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY PROPPULSE -->
   <section class="section why-section" id="why">
     <div class="container">
       <div class="why-inner">
@@ -197,35 +460,35 @@
             <span class="why-check" aria-hidden="true">✓</span>
             <div>
               <strong>15+ data sources per report</strong>
-              <span class="why-contrast">— vs. 2–3 from typical market analysts</span>
+              <span class="why-contrast">vs. 2–3 from typical market analysts</span>
             </div>
           </li>
           <li class="why-item">
             <span class="why-check" aria-hidden="true">✓</span>
             <div>
               <strong>Delivered in 24 hours</strong>
-              <span class="why-contrast">— vs. 1–2 week turnaround elsewhere</span>
+              <span class="why-contrast">vs. 1–2 week turnaround elsewhere</span>
             </div>
           </li>
           <li class="why-item">
             <span class="why-check" aria-hidden="true">✓</span>
             <div>
               <strong>Institutional-grade formatting</strong>
-              <span class="why-contrast">— not a generic Canva template</span>
+              <span class="why-contrast">not a generic Canva template</span>
             </div>
           </li>
           <li class="why-item">
             <span class="why-check" aria-hidden="true">✓</span>
             <div>
               <strong>DFW specialist focus</strong>
-              <span class="why-contrast">— not a watered-down national service</span>
+              <span class="why-contrast">not a watered-down national service</span>
             </div>
           </li>
           <li class="why-item">
             <span class="why-check" aria-hidden="true">✓</span>
             <div>
               <strong>Full satisfaction guarantee</strong>
-              <span class="why-contrast">— rewrite free or refund in full</span>
+              <span class="why-contrast">rewrite free or refund in full</span>
             </div>
           </li>
         </ul>
@@ -254,21 +517,21 @@
               <span class="vs-icon" aria-hidden="true">✕</span>
               <div>
                 <strong>Lead gen, not market intel</strong>
-                <span class="vs-detail">PropStream finds deals — it won't tell you if the market pencils</span>
+                <span class="vs-detail">PropStream finds deals. It won't tell you if the market pencils.</span>
               </div>
             </li>
             <li class="vs-item vs-item--no">
               <span class="vs-icon" aria-hidden="true">✕</span>
               <div>
                 <strong>Property-level, not neighborhood-level</strong>
-                <span class="vs-detail">HouseCanary values properties — it doesn't analyze streets</span>
+                <span class="vs-detail">HouseCanary values properties. It doesn't analyze streets.</span>
               </div>
             </li>
             <li class="vs-item vs-item--no">
               <span class="vs-icon" aria-hidden="true">✕</span>
               <div>
                 <strong>Raw data, no analysis</strong>
-                <span class="vs-detail">Attom gives you numbers — you still need to interpret them</span>
+                <span class="vs-detail">Attom gives you numbers. You still need to interpret them.</span>
               </div>
             </li>
             <li class="vs-item vs-item--no">
@@ -282,7 +545,7 @@
               <span class="vs-icon" aria-hidden="true">✕</span>
               <div>
                 <strong>Not DFW-specific</strong>
-                <span class="vs-detail">National platforms with national blind spots — no local expertise</span>
+                <span class="vs-detail">National platforms with national blind spots. No local expertise.</span>
               </div>
             </li>
           </ul>
@@ -304,14 +567,14 @@
               <span class="vs-icon" aria-hidden="true">✓</span>
               <div>
                 <strong>Block-level granularity</strong>
-                <span class="vs-detail">Zip codes, neighborhoods, rent comps — the data that moves deals</span>
+                <span class="vs-detail">Zip codes, neighborhoods, rent comps: the data that moves deals.</span>
               </div>
             </li>
             <li class="vs-item vs-item--yes">
               <span class="vs-icon" aria-hidden="true">✓</span>
               <div>
                 <strong>On-demand &amp; monthly updates</strong>
-                <span class="vs-detail">Fresh data when you need it — not when the calendar says so</span>
+                <span class="vs-detail">Fresh data when you need it, not when the calendar says so.</span>
               </div>
             </li>
             <li class="vs-item vs-item--yes">
@@ -325,7 +588,7 @@
               <span class="vs-icon" aria-hidden="true">✓</span>
               <div>
                 <strong>Built to close deals</strong>
-                <span class="vs-detail">Every section answers "should I deploy capital here?" — nothing else</span>
+                <span class="vs-detail">Every section answers one question: should I deploy capital here?</span>
               </div>
             </li>
             <li class="vs-item vs-item--yes">
@@ -340,7 +603,7 @@
 
       </div>
 
-      <p class="vs-footnote">PropStream finds the deal. HouseCanary values the property. PropPulse tells you if the market is worth deploying capital in — and <em>exactly what to pay</em>.</p>
+      <p class="vs-footnote">PropStream finds the deal. HouseCanary values the property. PropPulse tells you if the market is worth deploying capital in, and <em>exactly what to pay</em>.</p>
     </div>
   </section>
 
@@ -366,7 +629,7 @@
             <li>24-hour delivery</li>
             <li>Satisfaction guarantee</li>
           </ul>
-          <a href="https://www.paypal.com/ncp/payment/NG9RYBA2U6TQJ" target="_blank" rel="noopener" class="btn btn-ghost btn-full">Start Intel</a>
+          <a href="https://www.paypal.com/ncp/payment/NG9RYBA2U6TQJ" target="_blank" rel="noopener" class="btn btn-ghost btn-full">Get the Data Edge &rarr;</a>
         </div>
 
         <div class="pricing-card pricing-card--featured">
@@ -384,13 +647,29 @@
             <li>Weekly lead performance log</li>
             <li>Setup included — no extra fees</li>
           </ul>
-          <a href="#contact" data-plan="PropPulse Pro ($497/mo)" class="btn btn-primary btn-full">Get PropPulse Pro</a>
+          <a href="#contact" data-plan="PropPulse Pro ($497/mo)" class="btn btn-primary btn-full">Stop Missing Deals &rarr;</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Brokerage</div>
+          <div class="pricing-price"><span class="price-amount">$2,500</span><span class="price-period">/mo</span></div>
+          <div class="pricing-desc">For teams of 10+ agents. AI handles every inbound call across your office, qualifies leads, and routes them to the right agent automatically.</div>
+          <ul class="pricing-features" role="list">
+            <li>All Pro features included</li>
+            <li>Covers up to 15 agents</li>
+            <li>Dedicated DFW number per office</li>
+            <li>Unified lead dashboard</li>
+            <li>Team performance reporting</li>
+            <li>Priority support</li>
+            <li>Setup included</li>
+          </ul>
+          <a href="#contact" data-plan="Brokerage ($2,500/mo)" class="btn btn-ghost btn-full">Scale Your Office &rarr;</a>
         </div>
 
         <div class="pricing-card">
           <div class="pricing-tier">White-Label</div>
           <div class="pricing-price"><span class="price-amount">$1,500</span><span class="price-period">/mo</span></div>
-          <div class="pricing-desc">For brokerages, fund managers, and teams. Deliver institutional research under your own brand.</div>
+          <div class="pricing-desc">For fund managers and agencies. Deliver institutional research under your own brand across unlimited markets.</div>
           <ul class="pricing-features" role="list">
             <li>Your brand, our research engine</li>
             <li>Unlimited cities</li>
@@ -398,17 +677,17 @@
             <li>Custom report templates</li>
             <li>All Pro features included</li>
           </ul>
-          <a href="#contact" class="btn btn-ghost btn-full">Inquire Now</a>
+          <a href="#contact" class="btn btn-ghost btn-full">License the Engine &rarr;</a>
         </div>
 
       </div>
 
-      <p class="pricing-compare-note"><strong>vs. the alternative:</strong> PropStream ($165/mo) + HouseCanary ($66/mo) = $231/mo — with no DFW focus, no financial models, and no 24-hour reports.</p>
+      <p class="pricing-compare-note"><strong>vs. the alternative:</strong> PropStream ($165/mo) + HouseCanary ($66/mo) = $231/mo, with no DFW focus, no financial models, and no 24-hour reports.</p>
 
       <div class="guarantee-badge">
         <span class="guarantee-icon" aria-hidden="true">⚑</span>
         <p>
-          <strong>Satisfaction Guarantee —</strong>
+          <strong>Satisfaction Guarantee.</strong>
           Not satisfied with your first report? We rewrite it free or refund you in full. No questions asked.
         </p>
       </div>
@@ -433,46 +712,51 @@
               </div>
               <div class="sample-title-block">
                 <h3 class="sample-report-title">DFW Metroplex</h3>
-                <div class="sample-report-sub">Q1 2026 · Dallas-Fort Worth, TX</div>
+                <div class="sample-report-sub">Q2 2026 · Dallas-Fort Worth, TX</div>
               </div>
             </div>
             <div class="sample-stats-row">
               <div class="sample-stat">
-                <div class="sample-stat-val accent">7.8M</div>
-                <div class="sample-stat-lbl">Metro Population</div>
+                <div class="sample-stat-val accent">$436K</div>
+                <div class="sample-stat-lbl">Median List Price</div>
               </div>
               <div class="sample-stat">
-                <div class="sample-stat-val accent">5.5%</div>
-                <div class="sample-stat-lbl">Avg. Cap Rate</div>
+                <div class="sample-stat-val accent">5.76%</div>
+                <div class="sample-stat-lbl">Best Cap Rate</div>
               </div>
               <div class="sample-stat">
-                <div class="sample-stat-val accent">$1,820</div>
-                <div class="sample-stat-lbl">Median Rent</div>
+                <div class="sample-stat-val accent">26K+</div>
+                <div class="sample-stat-lbl">Active Listings</div>
               </div>
               <div class="sample-stat">
-                <div class="sample-stat-val accent">+4.2%</div>
-                <div class="sample-stat-lbl">YoY Rent Growth</div>
+                <div class="sample-stat-val accent">4.0%</div>
+                <div class="sample-stat-lbl">DFW Unemployment</div>
               </div>
             </div>
             <div class="sample-toc">
               <div class="sample-toc-title">Report Sections</div>
               <div class="sample-toc-grid">
-                <span>01 Executive Summary</span>
-                <span>02 Population &amp; Migration</span>
-                <span>03 Employment &amp; Economy</span>
-                <span>04 Housing Market</span>
-                <span>05 Rental Market</span>
-                <span>06 Neighborhood Analysis</span>
-                <span>07 Financial Models</span>
-                <span>08 Risk Factors</span>
-                <span>09 Investment Thesis</span>
+                <span>01 The Investment Verdict</span>
+                <span>02 Economic Engine</span>
+                <span>03 Supply &amp; Demand Reality</span>
+                <span>04 Rental Market Intelligence</span>
+                <span>05 Capital Markets &amp; Lending</span>
+                <span>06 Active Listings Snapshot</span>
+                <span>07 The Deal Math</span>
+                <span>08 8-Quarter Historical Trends</span>
+                <span>09 DFW vs. Peer Markets</span>
+                <span>10 Top 3 Investment Plays</span>
+                <span>11 Risk Matrix</span>
+                <span>12 Cross-Sector Snapshot</span>
+                <span>13 Methodology &amp; Data Sources</span>
+                <span>14 Sources &amp; Disclaimers</span>
               </div>
             </div>
           </div>
           <div class="sample-cta-block">
-            <h3>Full 9-Section Report</h3>
+            <h3>Full 14-Section Report</h3>
             <p>15+ verified data sources. Financial models included. Formatted for institutional use.</p>
-            <a href="dfw-market-report-2026-04-v5.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-lg sample-download">Download Free Sample <span aria-hidden="true">→</span></a>
+            <a href="dfw-market-report-2026-06-v2.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-lg sample-download">Download Free Sample <span aria-hidden="true">→</span></a>
             <p class="sample-note">PDF — No email required</p>
           </div>
         </div>
@@ -501,27 +785,36 @@
                     <span class="demo-dot"></span> Active call · DFW Specialist
                   </div>
                 </div>
-                <div class="demo-timer">0:42</div>
+                <div class="demo-timer" id="demo-call-timer">0:00</div>
               </div>
             </div>
             <div class="demo-messages">
-              <div class="demo-msg demo-msg--agent">
+              <div class="demo-typing-row dt-1" aria-hidden="true">
+                <div class="dm-typing-dots"><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div></div>
+              </div>
+              <div class="demo-msg demo-msg--agent dm-1">
                 <div class="demo-msg-label">PropPulse Agent</div>
                 <div class="demo-bubble">Hey! You've reached PropPulse. I'm your DFW real estate intelligence agent. Are you looking to buy, sell, or invest?</div>
               </div>
-              <div class="demo-msg demo-msg--user">
+              <div class="demo-msg demo-msg--user dm-2">
                 <div class="demo-msg-label">You</div>
                 <div class="demo-bubble">What are cap rates like in DFW right now?</div>
               </div>
-              <div class="demo-msg demo-msg--agent">
+              <div class="demo-typing-row dt-2" aria-hidden="true">
+                <div class="dm-typing-dots"><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div></div>
+              </div>
+              <div class="demo-msg demo-msg--agent dm-3">
                 <div class="demo-msg-label">PropPulse Agent</div>
                 <div class="demo-bubble">Metro-wide cap rates are averaging 5.5%. Mesquite and Garland are hitting 6–6.5%. Frisco and Plano are tighter at 4.4–4.7%. Want a full submarket breakdown?</div>
               </div>
-              <div class="demo-msg demo-msg--user">
+              <div class="demo-msg demo-msg--user dm-4">
                 <div class="demo-msg-label">You</div>
                 <div class="demo-bubble">Yes, and can I book a consultation?</div>
               </div>
-              <div class="demo-msg demo-msg--agent">
+              <div class="demo-typing-row dt-3" aria-hidden="true">
+                <div class="dm-typing-dots"><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div><div class="dm-typing-dot"></div></div>
+              </div>
+              <div class="demo-msg demo-msg--agent dm-5">
                 <div class="demo-msg-label">PropPulse Agent</div>
                 <div class="demo-bubble">Of course! I have Tuesday 10am, Wednesday 2pm, or Thursday 4pm. Which works? I'll send a confirmation SMS right away. ✓</div>
               </div>
@@ -569,7 +862,7 @@
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
           </div>
           <h3 class="client-type">Investors</h3>
-          <p class="client-pain">"Tired of guessing which zip codes actually pencil?"</p>
+          <p class="client-pain">"Tired of deploying capital into markets you don't fully understand?"</p>
           <p class="client-value">Get cap rate maps, rent-to-price ratios, and IRR models for every target market — before you wire a dollar.</p>
         </div>
         <div class="client-card">
@@ -577,7 +870,7 @@
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <h3 class="client-type">Wholesalers</h3>
-          <p class="client-pain">"Need deal flow data before your competition does?"</p>
+          <p class="client-pain">"Losing deals to buyers with better data and faster follow-up?"</p>
           <p class="client-value">Know which neighborhoods are trending up, where distressed supply is concentrating, and which buyers are most active.</p>
         </div>
         <div class="client-card">
@@ -585,7 +878,7 @@
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
           <h3 class="client-type">Agents &amp; Brokers</h3>
-          <p class="client-pain">"Want to impress clients with real numbers, not opinions?"</p>
+          <p class="client-pain">"Missing calls, losing leads, and showing up to presentations under-prepared?"</p>
           <p class="client-value">Show up to every listing presentation with institutional-grade data that closes deals and builds long-term client trust.</p>
         </div>
         <div class="client-card">
@@ -593,7 +886,7 @@
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           <h3 class="client-type">Property Managers</h3>
-          <p class="client-pain">"Tracking rent growth across a scattered portfolio?"</p>
+          <p class="client-pain">"Flying blind on rent pricing across a scattered portfolio?"</p>
           <p class="client-value">Monthly retainer reports give you the rent comp data and market benchmarks to optimize pricing across every unit you manage.</p>
         </div>
       </div>
@@ -607,28 +900,34 @@
 
       <!-- Left: info panel -->
       <div class="contact-info">
-        <div class="section-eyebrow">Get Started</div>
-        <h2 class="contact-title">Ready to Invest<br /><span class="accent">With Confidence?</span></h2>
-        <p class="contact-desc">Send us your details and we'll get your first report started within the hour. Delivered in 24 hours or less.</p>
+        <div class="section-eyebrow">Book a Strategy Call</div>
+        <h2 class="contact-title">Talk to Us.<br /><span class="accent">We'll Show You the ROI.</span></h2>
+        <p class="contact-desc">15 minutes. We'll show you exactly how many leads you're currently missing, what they're worth, and how the PropPulse AI stack fixes it — for free.</p>
 
         <ul class="contact-details" role="list">
           <li class="contact-detail-item">
             <span class="contact-detail-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </span>
+            <span>Free 15-min strategy call — no commitment</span>
+          </li>
+          <li class="contact-detail-item">
+            <span class="contact-detail-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </span>
-            <a href="mailto:imadeddinedjebli09@gmail.com" class="accent-link">imadeddinedjebli09@gmail.com</a>
+            <a href="mailto:alex@proppulse.online" class="accent-link">alex@proppulse.online</a>
           </li>
           <li class="contact-detail-item">
             <span class="contact-detail-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </span>
-            <span>Response within 1 hour · Report in 24 hours</span>
+            <span>Response within 1 hour · Live in 48 hours</span>
           </li>
           <li class="contact-detail-item">
             <span class="contact-detail-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             </span>
-            <span>Satisfaction guarantee — rewrite free or full refund</span>
+            <span>Satisfaction guarantee: rewrite free or full refund</span>
           </li>
         </ul>
 
@@ -672,6 +971,7 @@
               <option value="" disabled selected></option>
               <option value="PropPulse Intel ($199/mo)">PropPulse Intel — $199/mo</option>
               <option value="PropPulse Pro ($497/mo)">PropPulse Pro — $497/mo</option>
+              <option value="Brokerage ($2,500/mo)">Brokerage Team — $2,500/mo</option>
               <option value="White-Label ($1,500/mo)">White-Label — $1,500/mo</option>
               <option value="Not sure yet">Not sure yet</option>
             </select>
@@ -733,7 +1033,7 @@
       </div>
       <div class="footer-contact">
         <a href="https://www.proppulse.online" class="footer-site">proppulse.online</a>
-        <a href="mailto:imadeddinedjebli09@gmail.com" class="footer-email">imadeddinedjebli09@gmail.com</a>
+        <a href="mailto:alex@proppulse.online" class="footer-email">alex@proppulse.online</a>
       </div>
     </div>
     <div class="footer-bottom">
